@@ -1,1 +1,3 @@
-<template>AppVue</template>
+<template>Apptest</template>
+
+<script></script>

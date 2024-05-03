@@ -17,7 +17,7 @@
     </head>
     <body class="font-sans antialiased dark:bg-black dark:text-white/50">
         <div id="app">
-            <ExampleComponent></ExampleComponent>
+            @vite('resources/js/app.js')
         </div>
         <script src="{{ mix('js/app.js') }}"></script>
     </body>
