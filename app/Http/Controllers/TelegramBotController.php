@@ -26,22 +26,36 @@ class TelegramBotController extends Controller
 
     public function handleWebhook(Request $request)
     {
-        // Обработка входящего запроса от Telegram API
-        $update = Telegram::commandsHandler(true);
-        $update = json_decode($update, TRUE);
-        $chatId = $update["message"]["chat"]["id"];
-        $message = $update["message"]["text"];
-        $username = $update["message"]["from"]['username'];
-        // {"update_id":836343906,"message":
-        //  {"message_id":27,"from":{"id":1992446148,"is_bot":false,"first_name":"Виталий","last_name":"В","username":"GoPsyhology","language_code":"ru"},
-        //  "chat":{"id":1992446148,"first_name":"Виталий","last_name":"В","username":"GoPsyhology","type":"private"},"date":1714741933,"text":"/start","entities":[{"offset":0,"length":6,"type":"bot_command"}]}}}] 
+        // $update = Telegram::commandsHandler(true);
+        $update = $this->telegram->getWebhookUpdate();
+        $update_array = json_decode($update, TRUE);
+        // Log::info('update', [$update_array]);
 
-        $this->sendProfileInfo($chatId, $username);
-        // $messageId = $this->sendMessage('', '');
+        $chatId = $update_array["message"]["chat"]["id"];
+        $text = $update_array["message"]["text"];
+        $username = $update_array["message"]["from"]['username'];
 
-        $adminIds = json_decode(env('ADMIN_IDS', '[]'), true);
-        if (in_array($chatId, $adminIds)) {
-            $this->sendAdminInfo($chatId, $username);
+        $player = Player::firstOrCreate(['chat_id' => $chatId], [
+            'username' => $username,
+        ]);
+
+        switch ($text) {
+            case '/help':
+                $this->telegram->triggerCommand('help', $update);
+
+            case '/start':
+                $this->telegram->triggerCommand('start', $update);
+            case "/me":
+                $this->sendProfileInfo($chatId, $player);
+
+            case "/admin":
+                if (Player::isAdmin($chatId)) {
+                    // $this->sendAdminMenu($chatId);
+                    $this->sendAdminInfo($chatId, $username);
+                } else {
+                    $message = "403 Not supported";
+                    $this->sendMessage($chatId, $message);
+                }
         }
 
         return response()->json([
@@ -49,10 +63,11 @@ class TelegramBotController extends Controller
         ]);
     }
 
-    private function sendProfileInfo(string $chat_id, string $username)
+    private function sendProfileInfo(string $chat_id, Player $player)
     {
-        $score = 37931863;
-        $balance = 37931863;
+        $score = $player->score;
+        $balance = $player->balance;
+        $username = $player->username;
         $league = 'Diamond League';
 
         $text = "@$username *profile* " . PHP_EOL . PHP_EOL . "🏆 " . $league . PHP_EOL . "🪙 Total score: " . $score . PHP_EOL . "🪙 Balance: " . $balance . PHP_EOL . PHP_EOL . "/profile for personal stats";
@@ -104,5 +119,25 @@ class TelegramBotController extends Controller
 
         dump($response);
         return;
+    }
+
+    private function sendAdminMenu(string $chatId)
+    {
+        $keyboard = [
+            ['Список игроков'],
+            ['Статистика']
+        ];
+
+        $replyMarkup = [
+            'keyboard' => $keyboard,
+            'resize_keyboard' => true,
+            'one_time_keyboard' => false
+        ];
+
+        $response = $this->telegram->sendMessage([
+            'chat_id' => $chatId,
+            'text' => 'Выберите действие:',
+            // 'reply_markup' => json_encode($replyMarkup),
+        ]);
     }
 }

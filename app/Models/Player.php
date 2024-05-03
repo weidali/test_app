@@ -10,21 +10,30 @@ class Player extends Model
     use HasFactory;
 
     protected $fillable = [
-        'username', 'chat_id', 'taps', 'multiplier',
+        'username', 'chat_id', 'taps', 'multiplier', 'balance', 'score',
     ];
 
+    // protected $appends = [
+    //     'balance',
+    //     'score',
+    // ];
 
-    public function getBalanceAttribute()
-    {
-        return $this->balance;
-    }
+    // public function getBalanceAttribute()
+    // {
+    //     return $this->balance;
+    // }
+
+    // public function getScoreAttribute()
+    // {
+    //     return $this->score;
+    // }
 
     protected static function boot()
     {
         parent::boot();
 
         static::saving(function ($player) {
-            if ($player->isDirty('score')) {
+            if ($player->isDirty('taps')) {
                 /**
                  * $player = new Player;
                  * $player->username = 'username';
@@ -39,5 +48,12 @@ class Player extends Model
                 $player->score = $player->taps * $multiplier;
             }
         });
+    }
+
+    public static function isAdmin($chatId)
+    {
+        $adminIds = json_decode(env('ADMIN_IDS', '[]'), true);
+
+        return in_array($chatId, $adminIds);
     }
 }
