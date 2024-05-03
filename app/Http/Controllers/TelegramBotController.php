@@ -36,7 +36,6 @@ class TelegramBotController extends Controller
         //  "chat":{"id":1992446148,"first_name":"Виталий","last_name":"В","username":"GoPsyhology","type":"private"},"date":1714741933,"text":"/start","entities":[{"offset":0,"length":6,"type":"bot_command"}]}}}] 
 
         $this->sendProfileInfo($chatId, $username);
-        // Log::info('sdf', [$update]);
         // $messageId = $this->sendMessage('', '');
 
         return response()->json([
@@ -46,17 +45,11 @@ class TelegramBotController extends Controller
 
     private function sendProfileInfo(string $chat_id, string $username)
     {
-        // @GoPsyhology profile
-
-        // Legendary League
-        // Total score: 37931863
-        // Balance: 30968963
-
-        // /profile for personal stats
         $score = 37931863;
         $balance = 37931863;
+        $league = 'Diamond League';
 
-        $text = "@$username profile " . PHP_EOL . "Total score: " . $score . PHP_EOL . "Balance: " . $balance . PHP_EOL . "" . PHP_EOL . "/profile for personal stats";
+        $text = "@$username *profile* " . PHP_EOL . PHP_EOL . "🏆 " . $league . PHP_EOL . "🪙 Total score: " . $score . PHP_EOL . "🪙 Balance: " . $balance . PHP_EOL . PHP_EOL . "/profile for personal stats";
         $response = $this->telegram->sendMessage([
             'chat_id' => $chat_id,
             'text' => $text,
