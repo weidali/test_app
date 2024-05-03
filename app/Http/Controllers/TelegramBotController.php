@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Player;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Telegram\Bot\Api;
@@ -38,6 +39,11 @@ class TelegramBotController extends Controller
         $this->sendProfileInfo($chatId, $username);
         // $messageId = $this->sendMessage('', '');
 
+        $adminIds = json_decode(env('ADMIN_IDS', '[]'), true);
+        if (in_array($chatId, $adminIds)) {
+            $this->sendAdminInfo($chatId, $username);
+        }
+
         return response()->json([
             'status' => 'ok',
         ]);
@@ -57,13 +63,24 @@ class TelegramBotController extends Controller
         ]);
     }
 
+    private function sendAdminInfo(string $chat_id, string $username)
+    {
+        $total_players = Player::count();
+        $text = "*ADMIN MODE* " . PHP_EOL . PHP_EOL . "🪙 Total players: " . $total_players . PHP_EOL . PHP_EOL . "/admin for admin info";
+        $response = $this->telegram->sendMessage([
+            'chat_id' => $chat_id,
+            'text' => $text,
+            'parse_mode' => 'MarkDown',
+        ]);
+    }
+
     /**
      * Show the bot information.
      */
     public function show()
     {
         $response = $this->telegram->getMe();
-        Log::info('sdf', [$response]);
+        // Log::info('response', [$response]);
 
         return $response;
     }
