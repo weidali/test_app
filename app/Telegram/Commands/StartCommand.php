@@ -8,23 +8,18 @@ class StartCommand extends Command
 {
 	protected string $name = 'start';
 	protected array $aliases = ['subscribe'];
-	protected string $description = 'Start Command to get you started';
+	protected string $description = 'Start Command to init your started';
 
 	public function handle()
 	{
-		$inline_keyboard = [
-			['Играть'],
-			['Профиль']
-		];
+		$text = 'Hey, there!' . PHP_EOL;
+		$text .= 'Welcome to *Dev Kombat*!' . PHP_EOL . PHP_EOL;
+		$text .= '/help to Get a list of available commands' . PHP_EOL;
 
-		$inlineMarkup = [
-			'inline_keyboard' => $inline_keyboard,
-		];
 
 		$this->replyWithMessage([
-			'text' => 'Hey, there!' . PHP_EOL . 'Welcome to *Dev Kombat*!',
+			'text' => $text,
 			'parse_mode' => 'MarkDown',
-			'inline_markup' => json_encode($inlineMarkup),
 		]);
 	}
 }

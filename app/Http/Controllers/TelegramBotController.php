@@ -26,37 +26,7 @@ class TelegramBotController extends Controller
 
     public function handleWebhook(Request $request)
     {
-        // $update = Telegram::commandsHandler(true);
-        $update = $this->telegram->getWebhookUpdate();
-        $update_array = json_decode($update, TRUE);
-        // Log::info('update', [$update_array]);
-
-        $chatId = $update_array["message"]["chat"]["id"];
-        $text = $update_array["message"]["text"];
-        $username = $update_array["message"]["from"]['username'];
-
-        $player = Player::firstOrCreate(['chat_id' => $chatId], [
-            'username' => $username,
-        ]);
-
-        switch ($text) {
-            case '/help':
-                $this->telegram->triggerCommand('help', $update);
-
-            case '/start':
-                $this->telegram->triggerCommand('start', $update);
-            case "/me":
-                $this->sendProfileInfo($chatId, $player);
-
-            case "/admin":
-                if (Player::isAdmin($chatId)) {
-                    // $this->sendAdminMenu($chatId);
-                    $this->sendAdminInfo($chatId, $username);
-                } else {
-                    $message = "403 Not supported";
-                    $this->sendMessage($chatId, $message);
-                }
-        }
+        $update = Telegram::commandsHandler(true);
 
         return response()->json([
             'status' => 'ok',

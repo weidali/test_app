@@ -2,9 +2,9 @@
 
 return [
 	'commands' => [
+		App\Telegram\Commands\ProfileCommand::class,
+		App\Telegram\Commands\SettingsCommand::class,
 		App\Telegram\Commands\StartCommand::class,
-		Telegram\Bot\Commands\HelpCommand::class,
-		// Vendor\Project\Commands\StartCommand::class,
-		// Vendor\Project\Commands\SettingsCommand::class,
+		App\Telegram\Commands\HelpCommand::class,
 	]
 ];
