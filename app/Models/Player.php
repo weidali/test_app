@@ -13,21 +13,6 @@ class Player extends Model
         'username', 'chat_id', 'taps', 'multiplier', 'balance', 'score',
     ];
 
-    // protected $appends = [
-    //     'balance',
-    //     'score',
-    // ];
-
-    // public function getBalanceAttribute()
-    // {
-    //     return $this->balance;
-    // }
-
-    // public function getScoreAttribute()
-    // {
-    //     return $this->score;
-    // }
-
     protected static function boot()
     {
         parent::boot();
