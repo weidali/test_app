@@ -3,6 +3,8 @@
 namespace App\Telegram\Commands;
 
 use Telegram\Bot\Commands\Command;
+use Telegram\Bot\Objects\Keyboard\InlineKeyboardButton;
+use Telegram\Bot\Objects\Keyboard\InlineKeyboardMarkup;
 
 class StartCommand extends Command
 {

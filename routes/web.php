@@ -10,4 +10,4 @@ Route::get('/', function () {
 Route::post('/<token>/webhook', [TelegramBotController::class, 'handleWebhook']);
 
 Route::get('/show', [TelegramBotController::class, 'show']);
-Route::get('/set', [TelegramBotController::class, 'set']);
+Route::get('/set', [TelegramBotController::class, 'setWebhook']);

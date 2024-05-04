@@ -27,6 +27,26 @@ class TelegramBotController extends Controller
     public function handleWebhook(Request $request)
     {
         $update = Telegram::commandsHandler(true);
+        $update_array = json_decode($update, TRUE);
+
+        $chatId = $update_array["message"]["chat"]["id"];
+        $text = $update_array["message"]["text"];
+        $username = $update_array["message"]["from"]['username'];
+
+        $player = Player::firstOrCreate(['chat_id' => $chatId], [
+            'username' => $username,
+        ]);
+        if (isset($update->message->entities) && $update->message->entities[0]->type == "bot_command") {
+            switch ($text) {
+                case "/admin":
+                    if (Player::isAdmin($chatId)) {
+                        $this->sendAdminInfo($chatId, $username);
+                    }
+                    break;
+            }
+        }
+
+
 
         return response()->json([
             'status' => 'ok',
@@ -81,14 +101,12 @@ class TelegramBotController extends Controller
         return $messageId;
     }
 
-    public function set()
+    public function setWebhook()
     {
-        $url = 'https://ce85-185-182-193-115.ngrok-free.app';
+        $url = config('telegram.bots.mybot.webhook_url');
+        $response = Telegram::setWebhook(['url' => $url]);
 
-        $response = Telegram::setWebhook(['url' => $url . '/<token>/webhook']);
-
-        dump($response);
-        return;
+        return $response;
     }
 
     private function sendAdminMenu(string $chatId)
