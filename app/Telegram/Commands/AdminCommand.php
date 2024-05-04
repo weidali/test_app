@@ -9,7 +9,7 @@ use Telegram\Bot\Commands\Command;
 class AdminCommand extends Command
 {
 	protected string $name = 'admin';
-	protected string $description = 'Profile Command';
+	protected string $description = 'Admin Command';
 
 	public function handle()
 	{

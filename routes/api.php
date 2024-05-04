@@ -12,6 +12,6 @@ Route::group([
     // 'middleware' => 'auth',
     'prefix' => 'mining'
 ], function ($router) {
-    Route::get('taps', [\App\Http\Controllers\Api\v1\MiningController::class, 'taps']);
+    Route::get('taps/{chatId}', [\App\Http\Controllers\Api\v1\MiningController::class, 'taps']);
     Route::post('increment-taps', [\App\Http\Controllers\Api\v1\MiningController::class, 'incrementTaps']);
 });
