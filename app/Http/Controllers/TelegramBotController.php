@@ -27,11 +27,10 @@ class TelegramBotController extends Controller
     public function handleWebhook(Request $request)
     {
         $update = Telegram::commandsHandler(true);
-        $update_array = json_decode($update, TRUE);
 
-        $chatId = $update_array["message"]["chat"]["id"];
-        $text = $update_array["message"]["text"];
-        $username = $update_array["message"]["from"]['username'];
+        $chatId = $update->getChat()->id;
+        $text = $update->message->text;
+        $username = $update->message->from->username;
 
         $player = Player::firstOrCreate(['chat_id' => $chatId], [
             'username' => $username,
