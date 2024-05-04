@@ -12,7 +12,7 @@ use Telegram\Bot\Laravel\Facades\Telegram;
 
 class MiningController extends Controller
 {
-    public function taps(Request $request): JsonResponse
+    public function getTapsCounts(Request $request): JsonResponse
     {
         $validator = Validator::make($request->route()->parameters(), [
             'chatId' => ['required', 'integer',],
@@ -24,6 +24,9 @@ class MiningController extends Controller
         $chatId = request('chatId');
 
         $player = Player::where('chat_id', $chatId)->first();
+        if (!$player) {
+            return response()->json('Player not found', 419);
+        }
         Log::debug('[MiningController][taps]', [
             $player
         ]);
@@ -32,6 +35,7 @@ class MiningController extends Controller
             'balance' => $player->balance,
             'score' => $player->score,
             'multiplier' => $player->multiplier,
+            'created_at' => $player->created_at,
         ]);
     }
 

@@ -10,8 +10,13 @@ Route::get('/user', function (Request $request) {
 Route::group([
     // TODO
     // 'middleware' => 'auth',
+    'middleware' => 'telegram.hash',
     'prefix' => 'mining'
 ], function ($router) {
-    Route::get('taps/{chatId}', [\App\Http\Controllers\Api\v1\MiningController::class, 'taps']);
-    Route::post('increment-taps', [\App\Http\Controllers\Api\v1\MiningController::class, 'incrementTaps']);
+    Route::group([
+        'prefix' => 'taps'
+    ], function ($router) {
+        Route::get('{chatId}', [\App\Http\Controllers\Api\v1\MiningController::class, 'getTapsCounts']);
+        Route::post('increment', [\App\Http\Controllers\Api\v1\MiningController::class, 'incrementTaps']);
+    });
 });
