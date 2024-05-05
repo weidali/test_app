@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Telegram\Bot\Api;
 use Telegram\Bot\Laravel\Facades\Telegram;
+use Telegram\Bot\Objects\Update;
 
 class TelegramBotController extends Controller
 {
@@ -27,7 +28,13 @@ class TelegramBotController extends Controller
     public function handleWebhook(Request $request)
     {
         $update = Telegram::commandsHandler(true);
-
+        if (!$update instanceof Update) {
+            Log::debug('[handleWebhook]instanceof', [
+                'instanceof' => $update instanceof Update,
+                $update
+            ]);
+            return;
+        }
         $chatId = $update->getChat()->id;
         $text = $update->message->text;
         $username = $update->message->from->username;
