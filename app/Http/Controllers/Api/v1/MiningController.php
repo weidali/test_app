@@ -41,6 +41,47 @@ class MiningController extends Controller
 
     public function incrementTaps(Request $request): JsonResponse
     {
-        return response()->json('ok');
+        $initData = $request->header('X-Telegram-WebApp-initData');
+        $count = request('count');
+
+        $initDataArray = explode('&', rawurldecode($initData));
+        $needle        = 'user=';
+        $chatId          = '';
+
+        foreach ($initDataArray as &$data) {
+            if (substr($data, 0, \strlen($needle)) === $needle) {
+                $chatId = substr_replace($data, '', 0, \strlen($needle));
+                $user_arr = json_decode($chatId, true);
+                $data = null;
+            }
+        }
+
+        $player = Player::where('chat_id', $user_arr['id'])->first();
+        if (!$player) {
+            return response()->json('Player not found', 419);
+        }
+        Log::debug('[MiningController][incrementTaps]', [
+            $player
+        ]);
+
+
+        $validator = Validator::make($request->route()->parameters(), [
+            'count' => ['required', 'integer',],
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([$validator->errors()], 404);
+        }
+
+        $player->setAttribute('taps', $count);
+        $player->save();
+        $player = $player->fresh();
+
+        return response()->json([
+            'balance' => $player->balance,
+            'score' => $player->score,
+            'multiplier' => $player->multiplier,
+            'created_at' => $player->created_at,
+        ]);
     }
 }

@@ -17,6 +17,6 @@ Route::group([
         'prefix' => 'taps'
     ], function ($router) {
         Route::get('{chatId}', [\App\Http\Controllers\Api\v1\MiningController::class, 'getTapsCounts']);
-        Route::post('increment', [\App\Http\Controllers\Api\v1\MiningController::class, 'incrementTaps']);
+        Route::get('increment/{count}', [\App\Http\Controllers\Api\v1\MiningController::class, 'incrementTaps']);
     });
 });
