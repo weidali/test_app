@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Sleep;
 use Telegram\Bot\Api;
 
 class AppDeployed extends Command
@@ -47,6 +48,7 @@ class AppDeployed extends Command
                 'text' => $text,
                 'parse_mode' => 'MarkDown',
             ]);
+            Sleep::for(10)->seconds();
         }
 
         return true;

@@ -54,6 +54,7 @@ class SetTelegramWebhookUrl extends Command
                 'text' => $text,
                 'parse_mode' => 'MarkDown',
             ]);
+            Sleep::for(10)->seconds();
         }
 
         return true;
