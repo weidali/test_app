@@ -34,9 +34,9 @@ class TelegramBotController extends Controller
             ]);
             return;
         }
-        // Log::debug('[handleWebhook]instanceof', [
-        //     $update
-        // ]);
+        Log::debug('[handleWebhook]instanceof', [
+            $update
+        ]);
 
         if (isset($update->message->entities) && $update->message->entities[0]->type == "bot_command") {
             $chatId = $update->getChat()->id;

@@ -22,7 +22,7 @@ class StartCommand extends Command
 
 		$update = \Telegram\Bot\Laravel\Facades\Telegram::commandsHandler(true);
 
-		Log::debug('[handleWebhook]instanceof', [
+		Log::debug('[StartCommand]handle', [
 			$update
 		]);
 
