@@ -20,6 +20,10 @@ class StartCommand extends Command
 		$text .= '/help to Get a list of available commands' . PHP_EOL;
 
 
+		if ($this->getArguments()) {
+			$args = $this->getArguments();
+			Log::debug('args'[$args]);
+		}
 		$update = \Telegram\Bot\Laravel\Facades\Telegram::commandsHandler(true);
 
 		// $message->getText(true);
