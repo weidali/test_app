@@ -4,7 +4,7 @@ namespace App\Telegram\Services;
 
 class RequestData
 {
-	public static function getChatId(int $data): string
+	public static function getChatId(string $data): string
 	{
 		$initDataArray = explode('&', rawurldecode($data));
 		$needle        = 'user=';

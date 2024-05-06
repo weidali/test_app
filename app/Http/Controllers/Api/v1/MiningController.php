@@ -9,7 +9,6 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
-use Telegram\Bot\Laravel\Facades\Telegram;
 
 class MiningController extends Controller
 {
