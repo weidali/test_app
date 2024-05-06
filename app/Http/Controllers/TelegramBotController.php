@@ -26,34 +26,30 @@ class TelegramBotController extends Controller
 
     public function handleWebhook(Request $request)
     {
-        try {
-            Telegram::addCommands([
-                \App\Telegram\Commands\HelpCommand::class,
-                \App\Telegram\Commands\StartCommand::class,
-            ]);
-            $commandsHandler = Telegram::commandsHandler(true);
-            $update = Telegram::getWebhookUpdate(['timeout' => 120]);
+        // try {
 
-            $chat_id = $update["message"]["chat"]["id"];
-            $data = $update["message"]["text"];
+        //     $commandsHandler = Telegram::commandsHandler(true);
+        //     $update = Telegram::getWebhookUpdate(['timeout' => 120]);
 
-            switch ($data) {
-                case 'Help':
-                    $command = "help";
-                    $arguments = [];
-                    $res = Telegram::getCommandBus()->execute($command, $arguments, $commandsHandler);
-                    break;
-                default:
-                    # code...
-                    break;
-            }
-        } catch (Exception $e) {
-            dd($e->getMessage());
-            Log::debug('DDDDD', [e->getMessage()]);
-        }
+        //     $chat_id = $update["message"]["chat"]["id"];
+        //     $data = $update["message"]["text"];
 
-        Log::debug('DDDDD');
-        dd('ok');
+        //     switch ($data) {
+        //         case 'abs':
+        //             $command = "abs";
+        //             $arguments = [];
+        //             $res = Telegram::getCommandBus()->execute($command, $arguments, $commandsHandler);
+        //             break;
+        //         default:
+        //             # code...
+        //             break;
+        //     }
+        // } catch (Exception $e) {
+        //     $exception = $e->getMessage();
+        //     echo $e->getMessage();
+        // }
+
+        // Log::debug('DDDDD');
 
 
 
@@ -70,6 +66,8 @@ class TelegramBotController extends Controller
         Log::debug('[handleWebhook]instanceof', [
             $update
         ]);
+
+        // dd();
 
         if (isset($update->message->entities) && $update->message->entities[0]->type == "bot_command") {
             $chatId = $update->getChat()->id;

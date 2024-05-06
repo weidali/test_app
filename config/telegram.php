@@ -1,7 +1,5 @@
 <?php
 
-use Telegram\Bot\Commands\HelpCommand;
-
 return [
     /*
     |--------------------------------------------------------------------------
@@ -40,12 +38,11 @@ return [
              */
             'allowed_updates' => null,
             'commands' => [
-                App\Telegram\Commands\ProfileCommand::class,
-                App\Telegram\Commands\SettingsCommand::class,
-                App\Telegram\Commands\FriendCommand::class,
-                App\Telegram\Commands\StartCommand::class,
+                // App\Telegram\Commands\ProfileCommand::class,
+                // App\Telegram\Commands\SettingsCommand::class,
+                // App\Telegram\Commands\FriendCommand::class,
+                // App\Telegram\Commands\StartCommand::class,
                 App\Telegram\Commands\HelpCommand::class,
-                //Acme\Project\Commands\MyTelegramBot\BotCommand::class
             ],
         ],
 
@@ -162,10 +159,10 @@ return [
     'command_groups' => [
         // Group Type: 1
         'commmon' => [
-            App\Telegram\Commands\ProfileCommand::class,
-            App\Telegram\Commands\SettingsCommand::class,
-            App\Telegram\Commands\StartCommand::class,
-            App\Telegram\Commands\HelpCommand::class,
+            // App\Telegram\Commands\ProfileCommand::class,
+            // App\Telegram\Commands\SettingsCommand::class,
+            // App\Telegram\Commands\StartCommand::class,
+            // App\Telegram\Commands\HelpCommand::class,
             // Acme\Project\Commands\TodoCommand::class,
             // Acme\Project\Commands\TaskCommand::class,
         ],
@@ -189,7 +186,7 @@ return [
         ],
 
         'admin' => [
-            App\Telegram\Commands\AdminCommand::class,
+            // App\Telegram\Commands\AdminCommand::class,
             // 'admin' // Command Group Name.
         ],
 
