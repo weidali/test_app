@@ -12,7 +12,6 @@ class StartCommand extends Command
 	protected string $name = 'start';
 	protected array $aliases = ['subscribe'];
 	protected string $description = 'Start Command to init your started';
-	protected $pattern = '{id} {status}';
 
 	public function handle()
 	{
