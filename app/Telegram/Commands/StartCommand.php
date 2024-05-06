@@ -2,6 +2,7 @@
 
 namespace App\Telegram\Commands;
 
+use Illuminate\Support\Facades\Log;
 use Telegram\Bot\Commands\Command;
 use Telegram\Bot\Objects\Keyboard\InlineKeyboardButton;
 use Telegram\Bot\Objects\Keyboard\InlineKeyboardMarkup;
@@ -18,6 +19,12 @@ class StartCommand extends Command
 		$text .= 'Welcome to *Dev Kombat*!' . PHP_EOL . PHP_EOL;
 		$text .= '/help to Get a list of available commands' . PHP_EOL;
 
+
+		$update = \Telegram\Bot\Laravel\Facades\Telegram::commandsHandler(true);
+
+		Log::debug('[handleWebhook]instanceof', [
+			$update
+		]);
 
 		$this->replyWithMessage([
 			'text' => $text,
