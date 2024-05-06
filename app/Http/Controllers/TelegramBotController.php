@@ -24,7 +24,6 @@ class TelegramBotController extends Controller
         $this->telegram = $telegram;
     }
 
-
     public function handleWebhook(Request $request)
     {
         $update = Telegram::commandsHandler(true);
@@ -35,14 +34,9 @@ class TelegramBotController extends Controller
             ]);
             return;
         }
-        $chatId = $update->getChat()->id;
-        Log::debug('[handleWebhook]instanceof', [
-            'instanceof' => $update instanceof Update,
-            $update
-        ]);
-        return;
 
         if (isset($update->message->entities) && $update->message->entities[0]->type == "bot_command") {
+            $chatId = $update->getChat()->id;
             $username = $update->message->from->username;
             $text = $update->message->text;
             switch ($text) {
