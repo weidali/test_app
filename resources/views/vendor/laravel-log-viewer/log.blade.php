@@ -15,13 +15,6 @@
   </style>
 
   <script>
-    function initSelectEntries() {
-      const e = document.getElementById("table-log_length");
-      // const value = e.value;
-      console.log(e);
-      // console.log(value);
-      // const text = e.options[e.selectedIndex].text;
-    }
     function initTheme() {
       const darkThemeSelected =
         localStorage.getItem('darkSwitch') !== null &&
@@ -199,10 +192,6 @@
         if (data) data.start = 0;
         return data;
       }
-    });
-    $(function() {
-        var quantity="50"; 
-        $("#table-log_length").children("label").children("select").val(quantity);
     });
     $('#delete-log, #clean-log, #delete-all-log').click(function () {
       return confirm('Are you sure?');
