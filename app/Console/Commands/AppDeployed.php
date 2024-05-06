@@ -30,6 +30,7 @@ class AppDeployed extends Command
      */
     public function __construct(Api $telegram)
     {
+        parent::__construct();
         $this->telegram = $telegram;
     }
 
