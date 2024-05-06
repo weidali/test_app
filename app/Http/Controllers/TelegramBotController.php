@@ -41,13 +41,10 @@ class TelegramBotController extends Controller
             $update
         ]);
         return;
-        $text = $update->message->text;
-        $username = $update->message->from->username;
 
-        $player = Player::firstOrCreate(['chat_id' => $chatId], [
-            'username' => $username,
-        ]);
         if (isset($update->message->entities) && $update->message->entities[0]->type == "bot_command") {
+            $username = $update->message->from->username;
+            $text = $update->message->text;
             switch ($text) {
                 case "/admin":
                     if (Player::isAdmin($chatId)) {
