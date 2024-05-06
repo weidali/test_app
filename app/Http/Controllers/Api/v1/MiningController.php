@@ -31,7 +31,7 @@ class MiningController extends Controller
         return (new PlayerResource($player));
     }
 
-    public function getUser(Request $request): PlayerResource
+    public function getUser(Request $request): PlayerResource|JsonResponse
     {
         $initData = $request->header('X-Telegram-WebApp-initData');
         $chatId  = RequestData::getChatId($initData);
