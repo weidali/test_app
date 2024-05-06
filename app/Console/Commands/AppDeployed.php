@@ -3,7 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use Telegram\Bot\Laravel\Facades\Telegram;
+use Telegram\Bot\Api;
 
 class AppDeployed extends Command
 {
@@ -21,19 +21,29 @@ class AppDeployed extends Command
      */
     protected $description = 'Send message to admin when app was deployed';
 
+    protected $telegram;
+
+    /**
+     * Create a new controller instance.
+     *
+     * @param  Api  $telegram
+     */
+    public function __construct(Api $telegram)
+    {
+        $this->telegram = $telegram;
+    }
+
     /**
      * Execute the console command.
      */
     public function handle()
     {
-        $url = config('telegram.bots.mybot.webhook_url');
-
         $adminIds = json_decode(env('ADMIN_IDS', '[]'), true);
         $text = "*ADMIN MODE* " . PHP_EOL . PHP_EOL;
         $text .= "App was DEPLOYED!";
 
         foreach ($adminIds as $chatId) {
-            Telegram::sendMessage([
+            $this->telegram->sendMessage([
                 'chat_id' => $chatId,
                 'text' => $text,
                 'parse_mode' => 'MarkDown',
