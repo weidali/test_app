@@ -19,7 +19,7 @@ class Player extends Model
 
     public function getReferralLinkAttribute()
     {
-        return $this->referral_link = route('register', ['ref' => $this->username]);
+        return $this->referral_link = $this->username;
     }
 
     protected static function boot()
