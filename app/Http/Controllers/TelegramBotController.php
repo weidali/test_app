@@ -27,7 +27,7 @@ class TelegramBotController extends Controller
 
     public function handleWebhook(Request $request)
     {
-        $update = Telegram::commandsHandler(true);
+        $update = Telegram::getWebhookUpdate();
         if (!$update instanceof Update) {
             Log::debug('[handleWebhook]instanceof', [
                 'instanceof' => $update instanceof Update,
@@ -51,8 +51,6 @@ class TelegramBotController extends Controller
                     break;
             }
         }
-
-
 
         return response()->json([
             'status' => 'ok',
