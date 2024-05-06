@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Sleep;
 use Telegram\Bot\Api;
 use Telegram\Bot\Laravel\Facades\Telegram;
@@ -40,9 +41,20 @@ class SetTelegramWebhookUrl extends Command
     public function handle()
     {
         $url = config('telegram.bots.mybot.webhook_url');
-        Telegram::setWebhook(['url' => $url]);
+        $token = env('CUSTOM_API_TOKEN');
+        if (is_null($token) || $token == '') {
+            Artisan::call('app:generate-api-token');
+        }
+
+        $api_token = hash('sha256', $token);
+        Telegram::setWebhook([
+            'url' => $url,
+            'secret_token' => $api_token, // for “X-Telegram-Bot-Api-Secret-Token”
+            'max_connections' => 20,
+            'drop_pending_updates' => true,
+        ]);
         if (config('app.env') !== 'local') {
-            Sleep::for(10)->seconds();
+            Sleep::for(4)->seconds();
         }
 
         $adminIds = json_decode(env('ADMIN_IDS', '[]'), true);
@@ -57,7 +69,7 @@ class SetTelegramWebhookUrl extends Command
                 'parse_mode' => 'MarkDown',
             ]);
             if (config('app.env') !== 'local') {
-                Sleep::for(10)->seconds();
+                Sleep::for(5)->seconds();
             }
         }
 
