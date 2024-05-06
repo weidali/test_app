@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Player;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Telegram\Bot\Api;
@@ -11,7 +12,6 @@ use Telegram\Bot\Objects\Update;
 
 class TelegramBotController extends Controller
 {
-
     protected $telegram;
 
     /**
@@ -26,6 +26,37 @@ class TelegramBotController extends Controller
 
     public function handleWebhook(Request $request)
     {
+        try {
+            Telegram::addCommands([
+                \App\Telegram\Commands\HelpCommand::class,
+                \App\Telegram\Commands\StartCommand::class,
+            ]);
+            $commandsHandler = Telegram::commandsHandler(true);
+            $update = Telegram::getWebhookUpdate(['timeout' => 120]);
+
+            $chat_id = $update["message"]["chat"]["id"];
+            $data = $update["message"]["text"];
+
+            switch ($data) {
+                case 'Help':
+                    $command = "help";
+                    $arguments = [];
+                    $res = Telegram::getCommandBus()->execute($command, $arguments, $commandsHandler);
+                    break;
+                default:
+                    # code...
+                    break;
+            }
+        } catch (Exception $e) {
+            dd($e->getMessage());
+        }
+
+        Log::debug('DDDDD');
+        dd('ok');
+
+
+
+        // +++
         $update = Telegram::commandsHandler(true);
         if (!$update instanceof Update) {
             Log::debug('[handleWebhook]instanceof', [
@@ -34,6 +65,7 @@ class TelegramBotController extends Controller
             ]);
             return;
         }
+        // $res = $$this->telegram->getCommandBus()->execute($command, $arguments, $commandsHandler);
         Log::debug('[handleWebhook]instanceof', [
             $update
         ]);

@@ -22,6 +22,7 @@ class StartCommand extends Command
 
 		$update = \Telegram\Bot\Laravel\Facades\Telegram::commandsHandler(true);
 
+		// $message->getText(true);
 		Log::debug('[StartCommand]handle', [
 			$update
 		]);
