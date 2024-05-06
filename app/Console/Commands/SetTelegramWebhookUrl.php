@@ -2,7 +2,9 @@
 
 namespace App\Console\Commands;
 
+use App\Services\StringService;
 use Illuminate\Console\Command;
+use Illuminate\Support\Sleep;
 use Telegram\Bot\Api;
 use Telegram\Bot\Laravel\Facades\Telegram;
 
@@ -40,10 +42,11 @@ class SetTelegramWebhookUrl extends Command
     {
         $url = config('telegram.bots.mybot.webhook_url');
         Telegram::setWebhook(['url' => $url]);
+        Sleep::for(10)->seconds();
 
         $adminIds = json_decode(env('ADMIN_IDS', '[]'), true);
         $text = "*ADMIN MODE* " . PHP_EOL . PHP_EOL;
-        $text .= "Chaned url: " . config('app.url');
+        $text .= "Chaned url: \`" . StringService::toEscapeMsg(config('app.url')) . "\`";
 
         foreach ($adminIds as $chatId) {
             $this->telegram->sendMessage([
