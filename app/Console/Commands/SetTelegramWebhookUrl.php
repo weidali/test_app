@@ -2,7 +2,6 @@
 
 namespace App\Console\Commands;
 
-use App\Services\StringService;
 use Illuminate\Console\Command;
 use Illuminate\Support\Sleep;
 use Telegram\Bot\Api;
@@ -42,12 +41,14 @@ class SetTelegramWebhookUrl extends Command
     {
         $url = config('telegram.bots.mybot.webhook_url');
         Telegram::setWebhook(['url' => $url]);
-        Sleep::for(10)->seconds();
+        if (config('app.env') !== 'local') {
+            Sleep::for(10)->seconds();
+        }
 
         $adminIds = json_decode(env('ADMIN_IDS', '[]'), true);
         $text = "*ADMIN MODE* " . PHP_EOL . PHP_EOL;
         $text .= 'Api url was changed:' . PHP_EOL;
-        $text .= '\\`' . StringService::toEscapeMsg(config('app.url')) . '\\`';
+        $text .= '```' . (config('app.url')) . '```';
 
         foreach ($adminIds as $chatId) {
             $this->telegram->sendMessage([
@@ -55,7 +56,9 @@ class SetTelegramWebhookUrl extends Command
                 'text' => $text,
                 'parse_mode' => 'MarkDown',
             ]);
-            Sleep::for(10)->seconds();
+            if (config('app.env') !== 'local') {
+                Sleep::for(10)->seconds();
+            }
         }
 
         return true;

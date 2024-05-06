@@ -37,4 +37,20 @@ class StringService
 			'\\*',
 		], $str);
 	}
+
+	/**
+	 * Escape markdown text
+	 *
+	 * @param string $text the markdown text to escape
+	 *
+	 * @return string escaped text
+	 */
+	public static function markdown_escape($text)
+	{
+		return str_replace([
+			'\\', '-', '#', '*', '+', '`', '.', '[', ']', '(', ')', '!', '&', '<', '>', '_', '{', '}', '|'
+		], [
+			'\\\\', '\-', '\#', '\*', '\+', '\`', '\.', '\[', '\]', '\(', '\)', '\!', '\&', '\<', '\>', '\_', '\{', '\}', '\|',
+		], $text);
+	}
 }
