@@ -46,7 +46,8 @@ class SetTelegramWebhookUrl extends Command
 
         $adminIds = json_decode(env('ADMIN_IDS', '[]'), true);
         $text = "*ADMIN MODE* " . PHP_EOL . PHP_EOL;
-        $text .= "Chaned url: \`" . StringService::toEscapeMsg(config('app.url')) . "\`";
+        $text .= 'Api url was changed:' . PHP_EOL;
+        $text .= '\\`' . StringService::toEscapeMsg(config('app.url')) . '\\`';
 
         foreach ($adminIds as $chatId) {
             $this->telegram->sendMessage([
