@@ -8,12 +8,13 @@ use App\Models\Player;
 use App\Telegram\Services\RequestData;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class MiningController extends Controller
 {
-    public function start(Request $request): PlayerResource
+    public function start(Request $request): PlayerResource|JsonResponse
     {
         $initData = $request->header('X-Telegram-WebApp-initData');
         [$chatId, $username] = RequestData::getCredentials($initData);
@@ -21,8 +22,13 @@ class MiningController extends Controller
         $player = Player::firstOrCreate(['chat_id' => $chatId], [
             'username' => $username,
         ]);
+        if ($player->wasRecentlyCreated) {
+            return (new PlayerResource($player))
+                ->response()
+                ->setStatusCode(Response::HTTP_CREATED);;
+        }
 
-        return new PlayerResource($player);
+        return (new PlayerResource($player));
     }
 
     public function getUser(Request $request): PlayerResource
@@ -34,7 +40,7 @@ class MiningController extends Controller
         if (!$player) {
             return response()->json('Player not found', 419);
         }
-        Log::debug('[MiningController][taps]', [
+        Log::debug('[MiningController][getUser]', [
             $player
         ]);
 
