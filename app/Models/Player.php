@@ -10,8 +10,17 @@ class Player extends Model
     use HasFactory;
 
     protected $fillable = [
-        'username', 'chat_id', 'taps', 'multiplier', 'balance', 'score',
+        'username', 'chat_id',
+        'taps', 'multiplier', 'balance', 'score',
+        'referrer_id', 'referral_token',
     ];
+
+    protected $appends = ['referral_link'];
+
+    public function getReferralLinkAttribute()
+    {
+        return $this->referral_link = route('register', ['ref' => $this->username]);
+    }
 
     protected static function boot()
     {
@@ -40,5 +49,15 @@ class Player extends Model
         $adminIds = json_decode(env('ADMIN_IDS', '[]'), true);
 
         return in_array($chatId, $adminIds);
+    }
+
+    public function referrer()
+    {
+        return $this->belongsTo(Player::class, 'referrer_id', 'id');
+    }
+
+    public function referrals()
+    {
+        return $this->hasMany(Player::class, 'referrer_id', 'id');
     }
 }
