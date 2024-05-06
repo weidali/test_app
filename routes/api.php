@@ -13,10 +13,11 @@ Route::group([
     'middleware' => 'telegram.hash',
     'prefix' => 'mining'
 ], function ($router) {
+    Route::get('start', [\App\Http\Controllers\Api\v1\MiningController::class, 'start']);
+    Route::get('user', [\App\Http\Controllers\Api\v1\MiningController::class, 'getUser']);
     Route::group([
         'prefix' => 'taps'
     ], function ($router) {
-        Route::get('/', [\App\Http\Controllers\Api\v1\MiningController::class, 'getTapsCounts']);
         Route::get('increment/{count}', [\App\Http\Controllers\Api\v1\MiningController::class, 'incrementTaps']);
     });
 });

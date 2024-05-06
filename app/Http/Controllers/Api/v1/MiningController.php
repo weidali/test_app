@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\PlayerResource;
 use App\Models\Player;
 use App\Telegram\Services\RequestData;
 use Illuminate\Http\JsonResponse;
@@ -12,7 +13,19 @@ use Illuminate\Support\Facades\Validator;
 
 class MiningController extends Controller
 {
-    public function getTapsCounts(Request $request): JsonResponse
+    public function start(Request $request): PlayerResource
+    {
+        $initData = $request->header('X-Telegram-WebApp-initData');
+        [$chatId, $username] = RequestData::getCredentials($initData);
+
+        $player = Player::firstOrCreate(['chat_id' => $chatId], [
+            'username' => $username,
+        ]);
+
+        return new PlayerResource($player);
+    }
+
+    public function getUser(Request $request): PlayerResource
     {
         $initData = $request->header('X-Telegram-WebApp-initData');
         $chatId  = RequestData::getChatId($initData);
@@ -25,15 +38,10 @@ class MiningController extends Controller
             $player
         ]);
 
-        return response()->json([
-            'balance' => $player->balance,
-            'score' => $player->score,
-            'multiplier' => $player->multiplier,
-            'created_at' => $player->created_at,
-        ]);
+        return new PlayerResource($player);
     }
 
-    public function incrementTaps(Request $request): JsonResponse
+    public function incrementTaps(Request $request): PlayerResource
     {
         $initData = $request->header('X-Telegram-WebApp-initData');
         $count = request('count');
@@ -61,11 +69,6 @@ class MiningController extends Controller
         $player->save();
         $player = $player->fresh();
 
-        return response()->json([
-            'balance' => $player->balance,
-            'score' => $player->score,
-            'multiplier' => $player->multiplier,
-            'created_at' => $player->created_at,
-        ]);
+        return new PlayerResource($player);
     }
 }

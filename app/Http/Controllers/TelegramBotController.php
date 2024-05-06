@@ -85,7 +85,6 @@ class TelegramBotController extends Controller
     public function show()
     {
         $response = $this->telegram->getMe();
-        // Log::info('response', [$response]);
 
         return $response;
     }
@@ -117,7 +116,6 @@ class TelegramBotController extends Controller
         $response = $this->telegram->sendMessage([
             'chat_id' => $chatId,
             'text' => 'Выберите действие:',
-            // 'reply_markup' => json_encode($replyMarkup),
         ]);
     }
 }
