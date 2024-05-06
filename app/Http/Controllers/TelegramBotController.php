@@ -107,14 +107,6 @@ class TelegramBotController extends Controller
         return $messageId;
     }
 
-    public function setWebhook()
-    {
-        $url = config('telegram.bots.mybot.webhook_url');
-        $response = Telegram::setWebhook(['url' => $url]);
-
-        return $response;
-    }
-
     private function sendAdminMenu(string $chatId)
     {
         $keyboard = [
