@@ -24,8 +24,6 @@ class AppDeployed extends Command
     protected $telegram;
 
     /**
-     * Create a new controller instance.
-     *
      * @param  Api  $telegram
      */
     public function __construct(Api $telegram)

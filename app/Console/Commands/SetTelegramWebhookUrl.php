@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Telegram\Bot\Api;
 use Telegram\Bot\Laravel\Facades\Telegram;
 
 class SetTelegramWebhookUrl extends Command
@@ -21,6 +22,17 @@ class SetTelegramWebhookUrl extends Command
      */
     protected $description = 'Set telegram webhook url script';
 
+    protected $telegram;
+
+    /**
+     * @param  Api  $telegram
+     */
+    public function __construct(Api $telegram)
+    {
+        parent::__construct();
+        $this->telegram = $telegram;
+    }
+
     /**
      * Execute the console command.
      */
@@ -34,7 +46,7 @@ class SetTelegramWebhookUrl extends Command
         $text .= "Chaned url: " . config('app.url');
 
         foreach ($adminIds as $chatId) {
-            Telegram::sendMessage([
+            $this->telegram->sendMessage([
                 'chat_id' => $chatId,
                 'text' => $text,
                 'parse_mode' => 'MarkDown',
