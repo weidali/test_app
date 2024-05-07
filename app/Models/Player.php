@@ -9,6 +9,8 @@ class Player extends Model
 {
     use HasFactory;
 
+    public const TELEGRAM_BOT_BASE_URL = 'https://t.me/dev_kombat_bot';
+
     protected $fillable = [
         'username', 'chat_id',
         'taps', 'multiplier', 'balance', 'score',

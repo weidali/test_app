@@ -21,7 +21,7 @@ class FriendCommand extends Command
 			return;
 		}
 		$chatId = $message->getChat()->id;
-		$url = 'https://t.me/dev_kombat_bot?start=' . $chatId;
+		$url = Player::TELEGRAM_BOT_BASE_URL . '?start=' . $chatId;
 
 		$text = 'Share *DevKombat* with your firends and earn bonuses for each friend you invite and for their activity.' . PHP_EOL . PHP_EOL;
 		$text .= 'Copy and share it' . PHP_EOL;
