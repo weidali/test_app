@@ -17,10 +17,24 @@ class StartCommand extends Command
 	{
 
 		$args = $this->getArguments();
-		Log::debug($args);
-
-
 		$response = $this->getUpdate();
+
+		Log::debug('[StartCommand]', [
+			'args' => $args,
+			'response' => $response,
+		]);
+
+
+		$text = 'Hey, there!' . PHP_EOL;
+		$text .= 'Welcome to *Dev Kombat*!' . PHP_EOL . PHP_EOL;
+		$text .= '/help to Get a list of available commands' . PHP_EOL;
+
+
+		$this->replyWithMessage(compact('text'));
+
+		return;
+
+
 
 		$text = 'Hey stranger, thanks for visiting me.' . chr(10) . chr(10);
 		$text .= 'You send me a test command with following arguments:' . chr(10) . chr(10);
@@ -32,9 +46,7 @@ class StartCommand extends Command
 
 		return;
 
-		$text = 'Hey, there!' . PHP_EOL;
-		$text .= 'Welcome to *Dev Kombat*!' . PHP_EOL . PHP_EOL;
-		$text .= '/help to Get a list of available commands' . PHP_EOL;
+
 
 
 		if ($this->getArguments()) {
