@@ -16,7 +16,12 @@ GET|HEAD `api/user`
 
 ### Business logic
 
-Player
-- can tap ($palyer->taps)
+*Mining process*
+- Player can tap ($palyer->taps)
 - `taps` convert to `score` ($palyer->score) 
-- `score` by `multiplier`
+- `score` are calculated using multipliers multiplied by `tabs` ('score = multipliers * taps')
+- `balance` ($palyer->balance) are calculated by adding `score` and some `claims`
+
+*Referrals system*
+- Player can invite frends by `referral_link` ($palyer->referral_link)
+- `referral_link` saved just one time by clicking `/start` after activate `referral_link`
