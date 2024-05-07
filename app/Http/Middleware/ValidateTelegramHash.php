@@ -27,7 +27,6 @@ class ValidateTelegramHash
 
         if (strcmp($hash, $checksum) === 0) {
             // validation success
-
             return $next($request);
         } else {
             // validation failed
