@@ -49,11 +49,6 @@ class TelegramBotController extends Controller
         //     echo $e->getMessage();
         // }
 
-        // Log::debug('DDDDD');
-
-
-
-        // +++
         $update = Telegram::commandsHandler(true);
         if (!$update instanceof Update) {
             Log::debug('[handleWebhook]instanceof', [
@@ -64,7 +59,9 @@ class TelegramBotController extends Controller
         }
         // $res = $$this->telegram->getCommandBus()->execute($command, $arguments, $commandsHandler);
         Log::debug('[handleWebhook]instanceof', [
-            $update
+            $update,
+            'X-Telegram-WebApp-initData' => $request->header('X-Telegram-WebApp-initData'),
+            'X-Telegram-Bot-Api-Secret-Token' => $request->header('X-Telegram-Bot-Api-Secret-Token'),
         ]);
 
         // dd();
