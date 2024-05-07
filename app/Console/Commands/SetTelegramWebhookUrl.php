@@ -42,9 +42,6 @@ class SetTelegramWebhookUrl extends Command
     {
         $url = config('telegram.bots.mybot.webhook_url');
         $token = env('CUSTOM_API_TOKEN');
-        if (is_null($token) || $token == '') {
-            Artisan::call('app:generate-api-token');
-        }
 
         $api_token = hash('sha256', $token);
         Telegram::setWebhook([
