@@ -13,7 +13,8 @@ class Player extends Model
 
     protected $fillable = [
         'username', 'chat_id',
-        'taps', 'multiplier', 'balance', 'score',
+        'taps', 'multiplier',
+        'score', 'balance',
         'referrer_id',
     ];
 

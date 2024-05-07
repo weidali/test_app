@@ -15,8 +15,9 @@ class PlayerResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'balance' => $this->balance,
+            'username' => $this->username,
             'score' => $this->score,
+            'balance' => $this->balance,
             'multiplier' => $this->multiplier,
             'referral_link' => $this->referral_link,
             'referrer' => self::make($this->whenLoaded('referrer')),
