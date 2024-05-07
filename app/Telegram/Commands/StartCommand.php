@@ -30,14 +30,17 @@ class StartCommand extends Command
 		// 	'message' => $message,
 		// 	'text' => $t,
 		// ]);
-
+		$ref_player_id = null;
 		$pecah = explode(' ', $t, 3);
-		$referrer = $pecah[1];
+		$referrer = $pecah[1] ?? null;
 
-		$ref_player = Player::where('chat_id', $referrer)->first();
+		if ($referrer) {
+			$ref_player = Player::where('chat_id', $referrer)->first();
+			$ref_player_id = $ref_player->id;
+		}
 		$player = Player::firstOrCreate(['chat_id' => $chatId], [
 			'username' => $username,
-			'referrer_id' => $ref_player->id,
+			'referrer_id' => $ref_player_id,
 		]);
 
 		$text = 'Hey, there!' . PHP_EOL;
