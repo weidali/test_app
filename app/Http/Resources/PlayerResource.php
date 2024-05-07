@@ -18,6 +18,7 @@ class PlayerResource extends JsonResource
             'balance' => $this->balance,
             'score' => $this->score,
             'multiplier' => $this->multiplier,
+            'referral_link' => $this->referral_link,
             'created_at' => $this->created_at,
         ];
     }
