@@ -14,3 +14,9 @@ GET|HEAD `api/user`
 `419` - when first init app, when player not found, for redirect him to create acount(start mining)
 `422` - invalid Telegram WebApp initData
 
+### Business logic
+
+Player
+- can tap ($palyer->taps)
+- `taps` convert to `score` ($palyer->score) 
+- `score` by `multiplier`
