@@ -16,8 +16,6 @@ class StartCommand extends Command
 
 	public function handle()
 	{
-
-		$args = $this->getArguments();
 		$response = $this->getUpdate();
 		$message = $response->getMessage();
 		$chatId = $message->getChat()->id;
@@ -25,7 +23,6 @@ class StartCommand extends Command
 		$t = $message->getText(true);
 
 		// Log::debug('[StartCommand]', [
-		// 	'args' => $args,
 		// 	'response' => $response,
 		// 	'message' => $message,
 		// 	'text' => $t,

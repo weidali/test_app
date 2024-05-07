@@ -19,6 +19,9 @@ class MiningController extends Controller
         $initData = $request->header('X-Telegram-WebApp-initData');
         // TODO
         $secret_token = $request->header('X-Telegram-Bot-Api-Secret-Token');
+        if (is_null($initData) || $initData == '') {
+            return response()->json('Wrong credentials', 422);
+        }
 
         [$chatId, $username] = RequestData::getCredentials($initData);
 
@@ -64,7 +67,6 @@ class MiningController extends Controller
         Log::debug('[MiningController][incrementTaps]', [
             $player
         ]);
-
 
         $validator = Validator::make($request->route()->parameters(), [
             'count' => ['required', 'integer',],
