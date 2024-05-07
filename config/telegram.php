@@ -38,11 +38,16 @@ return [
              */
             'allowed_updates' => null,
             'commands' => [
-                // App\Telegram\Commands\ProfileCommand::class,
-                // App\Telegram\Commands\SettingsCommand::class,
-                // App\Telegram\Commands\FriendCommand::class,
-                // App\Telegram\Commands\StartCommand::class,
+                App\Telegram\Commands\ProfileCommand::class,
+                App\Telegram\Commands\SettingsCommand::class,
+                App\Telegram\Commands\FriendCommand::class,
+                App\Telegram\Commands\StartCommand::class,
                 App\Telegram\Commands\HelpCommand::class,
+            ],
+            'command_groups' => [
+                'admin' => [
+                    App\Telegram\Commands\AdminCommand::class,
+                ],
             ],
         ],
 
