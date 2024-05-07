@@ -22,6 +22,7 @@ class StartCommand extends Command
 		Log::debug('[StartCommand]', [
 			'args' => $args,
 			'response' => $response,
+			'HTTP_REFERER' => $_SERVER['HTTP_REFERER'],
 		]);
 
 
@@ -29,25 +30,9 @@ class StartCommand extends Command
 		$text .= 'Welcome to *Dev Kombat*!' . PHP_EOL . PHP_EOL;
 		$text .= '/help to Get a list of available commands' . PHP_EOL;
 
-
 		$this->replyWithMessage(compact('text'));
 
 		return;
-
-
-
-		$text = 'Hey stranger, thanks for visiting me.' . chr(10) . chr(10);
-		$text .= 'You send me a test command with following arguments:' . chr(10) . chr(10);
-		$text .= 'ID: ' . $args['id'] . chr(10);
-		$text .= 'Status: ' . $args['status'] . chr(10) . chr(10);
-		$text .= 'Keep up the good work!' . chr(10);
-
-		$this->replyWithMessage(compact('text'));
-
-		return;
-
-
-
 
 		if ($this->getArguments()) {
 			$args = $this->getArguments();
