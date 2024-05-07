@@ -17,6 +17,9 @@ class MiningController extends Controller
     public function start(Request $request): PlayerResource|JsonResponse
     {
         $initData = $request->header('X-Telegram-WebApp-initData');
+        // TODO
+        $secret_token = $request->header('X-Telegram-Bot-Api-Secret-Token');
+
         [$chatId, $username] = RequestData::getCredentials($initData);
 
         $player = Player::firstOrCreate(['chat_id' => $chatId], [

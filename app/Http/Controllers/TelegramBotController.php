@@ -26,29 +26,6 @@ class TelegramBotController extends Controller
 
     public function handleWebhook(Request $request)
     {
-        // try {
-
-        //     $commandsHandler = Telegram::commandsHandler(true);
-        //     $update = Telegram::getWebhookUpdate(['timeout' => 120]);
-
-        //     $chat_id = $update["message"]["chat"]["id"];
-        //     $data = $update["message"]["text"];
-
-        //     switch ($data) {
-        //         case 'abs':
-        //             $command = "abs";
-        //             $arguments = [];
-        //             $res = Telegram::getCommandBus()->execute($command, $arguments, $commandsHandler);
-        //             break;
-        //         default:
-        //             # code...
-        //             break;
-        //     }
-        // } catch (Exception $e) {
-        //     $exception = $e->getMessage();
-        //     echo $e->getMessage();
-        // }
-
         $update = Telegram::commandsHandler(true);
         if (!$update instanceof Update) {
             Log::debug('[handleWebhook]instanceof', [
@@ -57,14 +34,6 @@ class TelegramBotController extends Controller
             ]);
             return;
         }
-        // $res = $$this->telegram->getCommandBus()->execute($command, $arguments, $commandsHandler);
-        Log::debug('[handleWebhook]instanceof', [
-            $update,
-            'X-Telegram-WebApp-initData' => $request->header('X-Telegram-WebApp-initData'),
-            'X-Telegram-Bot-Api-Secret-Token' => $request->header('X-Telegram-Bot-Api-Secret-Token'),
-        ]);
-
-        // dd();
 
         if (isset($update->message->entities) && $update->message->entities[0]->type == "bot_command") {
             $chatId = $update->getChat()->id;
