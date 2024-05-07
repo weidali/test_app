@@ -22,9 +22,11 @@ class MiningController extends Controller
 
         [$chatId, $username] = RequestData::getCredentials($initData);
 
-        $player = Player::firstOrCreate(['chat_id' => $chatId], [
-            'username' => $username,
-        ]);
+        $player = Player::query()
+            ->with(['referrer', 'referrals'])
+            ->firstOrCreate(['chat_id' => $chatId], [
+                'username' => $username,
+            ]);
         if ($player->wasRecentlyCreated) {
             return (new PlayerResource($player))
                 ->response()
