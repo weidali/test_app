@@ -2,6 +2,7 @@
 
 namespace App\Telegram\Commands;
 
+use App\Models\Player;
 use Illuminate\Support\Facades\Log;
 use Telegram\Bot\Commands\Command;
 use Telegram\Bot\Objects\Keyboard\InlineKeyboardButton;
@@ -19,34 +20,29 @@ class StartCommand extends Command
 		$args = $this->getArguments();
 		$response = $this->getUpdate();
 		$message = $response->getMessage();
+		$chatId = $message->getChat()->id;
+		$username = $message->from->username;
 		$t = $message->getText(true);
 
-		Log::debug('[StartCommand]', [
-			'args' => $args,
-			'response' => $response,
-			'message' => $message,
-			'text' => $t,
-		]);
+		// Log::debug('[StartCommand]', [
+		// 	'args' => $args,
+		// 	'response' => $response,
+		// 	'message' => $message,
+		// 	'text' => $t,
+		// ]);
 
+		$pecah = explode(' ', $t, 3);
+		$referrer = $pecah[1];
+
+		$ref_player = Player::where('chat_id', $referrer)->first();
+		$player = Player::firstOrCreate(['chat_id' => $chatId], [
+			'username' => $username,
+			'referrer_id' => $ref_player->id,
+		]);
 
 		$text = 'Hey, there!' . PHP_EOL;
-		$text .= 'Welcome to *Dev Kombat*!' . PHP_EOL . PHP_EOL;
+		$text .= '💽 Welcome to *Dev Kombat*!' . PHP_EOL . PHP_EOL;
 		$text .= '/help to Get a list of available commands' . PHP_EOL;
-
-		$this->replyWithMessage(compact('text'));
-
-		return;
-
-		if ($this->getArguments()) {
-			$args = $this->getArguments();
-			Log::debug('args'[$args]);
-		}
-		$update = \Telegram\Bot\Laravel\Facades\Telegram::commandsHandler(true);
-
-
-		Log::debug('[StartCommand]handle', [
-			$update
-		]);
 
 		$this->replyWithMessage([
 			'text' => $text,
