@@ -16,6 +16,9 @@ class ValidateTelegramHash
     public function handle(Request $request, Closure $next): Response
     {
         $initData = $request->header('X-Telegram-WebApp-initData');
+        if (is_null($initData) || $initData == '') {
+            return response()->json('Wrong credentials', 422);
+        }
         $botToken = env('TELEGRAM_BOT_TOKEN');
 
         [$checksum, $sortedInitData] = self::convertInitData($initData);
