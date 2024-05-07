@@ -18,11 +18,14 @@ class StartCommand extends Command
 
 		$args = $this->getArguments();
 		$response = $this->getUpdate();
+		$message = $response->getMessage();
+		$t = $message->getText(true);
 
 		Log::debug('[StartCommand]', [
 			'args' => $args,
 			'response' => $response,
-			'HTTP_REFERER' => $_SERVER['HTTP_REFERER'],
+			'message' => $message,
+			'text' => $t,
 		]);
 
 
@@ -40,7 +43,7 @@ class StartCommand extends Command
 		}
 		$update = \Telegram\Bot\Laravel\Facades\Telegram::commandsHandler(true);
 
-		// $message->getText(true);
+
 		Log::debug('[StartCommand]handle', [
 			$update
 		]);
