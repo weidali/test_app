@@ -28,4 +28,9 @@ Route::group([
     ], function ($router) {
         Route::get('link', [\App\Http\Controllers\Api\v1\ReferrerController::class, 'getLink']);
     });
+    Route::group([
+        'prefix' => 'users'
+    ], function ($router) {
+        Route::get('/', [\App\Http\Controllers\Api\v1\RatesController::class, 'getUsers']);
+    });
 });

@@ -7,6 +7,7 @@ GET|HEAD `api/mining/taps/increment/{count}`
 GET|HEAD `api/mining/user`
 GET|HEAD `api/referral/link`
 GET|HEAD `api/user`
+GET|HEAD `api/users`
 
 ### Api response error codes
 
