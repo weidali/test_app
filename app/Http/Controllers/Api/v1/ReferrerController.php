@@ -26,7 +26,6 @@ class ReferrerController extends Controller
 
     function getLink(Request $request): JsonResponse
     {
-        $link = '';
         $initData = $request->header('X-Telegram-WebApp-initData');
         $chatId  = RequestData::getChatId($initData);
 
@@ -61,7 +60,7 @@ class ReferrerController extends Controller
         }
 
         return response()->json([
-            'link' => $link,
+            'link' => $url,
         ]);
     }
 }
