@@ -36,8 +36,7 @@ class ReferrerController extends Controller
         Log::debug('[ReferrerController][getLink]', [
             $player
         ]);
-
-        $url = Player::TELEGRAM_BOT_BASE_URL . '?start=' . $chatId;
+        $url = $player->referral_link;
 
         $text = 'Share *DevKombat* with your firends and earn bonuses for each friend you invite and for their activity.' . PHP_EOL . PHP_EOL;
         $text .= 'Copy and share it' . PHP_EOL;

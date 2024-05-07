@@ -24,7 +24,7 @@ Route::group([
         });
     });
     Route::group([
-        'prefix' => 'referrer'
+        'prefix' => 'referral'
     ], function ($router) {
         Route::get('link', [\App\Http\Controllers\Api\v1\ReferrerController::class, 'getLink']);
     });

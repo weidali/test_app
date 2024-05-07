@@ -21,7 +21,7 @@ class Player extends Model
 
     public function getReferralLinkAttribute()
     {
-        return $this->username;
+        return self::TELEGRAM_BOT_BASE_URL . '?start=' . $this->chat_id;
     }
 
     protected static function boot()
