@@ -22,11 +22,9 @@ class MiningController extends Controller
 
         [$chatId, $username] = RequestData::getCredentials($initData);
 
-        $player = Player::query()
-            ->with(['referrer', 'referrals'])
-            ->firstOrCreate(['chat_id' => $chatId], [
-                'username' => $username,
-            ]);
+        $player = Player::firstOrCreate(['chat_id' => $chatId], [
+            'username' => $username,
+        ]);
         if ($player->wasRecentlyCreated) {
             return (new PlayerResource($player))
                 ->response()
@@ -41,7 +39,9 @@ class MiningController extends Controller
         $initData = $request->header('X-Telegram-WebApp-initData');
         $chatId  = RequestData::getChatId($initData);
 
-        $player = Player::where('chat_id', $chatId)->first();
+        $player = Player::query()
+            ->with(['referrer', 'referrals'])
+            ->where('chat_id', $chatId)->first();
         if (!$player) {
             return response()->json('Player not found', 419);
         }
