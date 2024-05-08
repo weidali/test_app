@@ -25,6 +25,8 @@ class RefreshPlayersBio extends Command
      */
     protected $description = 'Command description';
 
+    public int $wait = 4;
+
     /**
      * Execute the console command.
      */
@@ -41,7 +43,7 @@ class RefreshPlayersBio extends Command
                     'user_id' => $player->chat_id,
                 ]);
                 if (config('app.env') !== 'local') {
-                    Sleep::for(3)->seconds();
+                    Sleep::for($this->wait)->seconds();
                 }
                 $file_id = $photos['photos'][0][0]['file_id'];
                 // dump($file_id);
@@ -57,7 +59,7 @@ class RefreshPlayersBio extends Command
                     'chat_id' => $player->chat_id,
                 ]);
                 if (config('app.env') !== 'local') {
-                    Sleep::for(3)->seconds();
+                    Sleep::for($this->wait)->seconds();
                 }
 
                 $first_name = $chat['first_name'];
