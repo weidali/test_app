@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Models\Player;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Sleep;
 use Telegram\Bot\Exceptions\TelegramResponseException;
 use Telegram\Bot\Laravel\Facades\Telegram;
 
@@ -39,6 +40,9 @@ class RefreshPlayersBio extends Command
                 $photos = Telegram::getUserProfilePhotos([
                     'user_id' => $player->chat_id,
                 ]);
+                if (config('app.env') !== 'local') {
+                    Sleep::for(3)->seconds();
+                }
                 $file_id = $photos['photos'][0][0]['file_id'];
                 // dump($file_id);
             } catch (TelegramResponseException $e) {
@@ -52,6 +56,9 @@ class RefreshPlayersBio extends Command
                     'user_id' => $player->chat_id,
                     'chat_id' => $player->chat_id,
                 ]);
+                if (config('app.env') !== 'local') {
+                    Sleep::for(3)->seconds();
+                }
 
                 $first_name = $chat['first_name'];
                 if (isset($chat['last_name'])) {
