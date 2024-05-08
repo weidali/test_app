@@ -48,6 +48,10 @@ class RefreshPlayersBio extends Command
                 if ($photos['total_count'] > 0) {
                     $file_id = $photos['photos'][0][0]['file_id'];
                 }
+                Log::debug('[RefreshPlayersBioCredentials] getUserProfilePhotos', [
+                    'photos' => $photos,
+                    'chat_id' => $player->chat_id,
+                ]);
             } catch (TelegramResponseException $e) {
                 Log::error('[RefreshPlayersBioCredentials] getUserProfilePhotos', [
                     'error' => $e->getMessage(),
@@ -62,6 +66,10 @@ class RefreshPlayersBio extends Command
                 if (config('app.env') !== 'local') {
                     Sleep::for($this->wait)->seconds();
                 }
+                Log::debug('[RefreshPlayersBioCredentials] getChat', [
+                    'chat' => $chat,
+                    'chat_id' => $player->chat_id,
+                ]);
 
                 if ($chat) {
                     $first_name = $chat['first_name'];
