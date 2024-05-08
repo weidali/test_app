@@ -36,7 +36,7 @@ class RefreshPlayersBio extends Command
         $last_name = null;
         $file_id = null;
 
-        $players = Player::select('chat_id')->get();
+        $players = Player::all();
         foreach ($players as $player) {
             try {
                 $photos = Telegram::getUserProfilePhotos([
@@ -47,11 +47,11 @@ class RefreshPlayersBio extends Command
                 }
                 if ($photos['total_count'] > 0) {
                     $file_id = $photos['photos'][0][0]['file_id'];
+                    Log::debug('[RefreshPlayersBioCredentials] getUserProfilePhotos', [
+                        'file_id' => $file_id,
+                        'chat_id' => $player->chat_id,
+                    ]);
                 }
-                Log::debug('[RefreshPlayersBioCredentials] getUserProfilePhotos', [
-                    'photos' => $photos,
-                    'chat_id' => $player->chat_id,
-                ]);
             } catch (TelegramResponseException $e) {
                 Log::error('[RefreshPlayersBioCredentials] getUserProfilePhotos', [
                     'error' => $e->getMessage(),
@@ -66,16 +66,17 @@ class RefreshPlayersBio extends Command
                 if (config('app.env') !== 'local') {
                     Sleep::for($this->wait)->seconds();
                 }
-                Log::debug('[RefreshPlayersBioCredentials] getChat', [
-                    'chat' => $chat,
-                    'chat_id' => $player->chat_id,
-                ]);
 
                 if ($chat) {
                     $first_name = $chat['first_name'];
                     if (isset($chat['last_name'])) {
                         $last_name = $chat['last_name'];
                     }
+                    Log::debug('[RefreshPlayersBioCredentials] getChat', [
+                        'first_name' => $first_name,
+                        'last_name' => $last_name,
+                        'chat_id' => $player->chat_id,
+                    ]);
                     // $file_id = $chat['photo']['small_file_id'];
                     // $photo = $chat['photo']['small_file_id'];
                 }
