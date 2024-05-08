@@ -45,7 +45,12 @@ class RefreshPlayersBio extends Command
                 if (config('app.env') !== 'local') {
                     Sleep::for($this->wait)->seconds();
                 }
-                $file_id = $photos['photos'][0][0]['file_id'];
+                Log::debug('[RefreshPlayersBioCredentials] getUserProfilePhotos', [
+                    'photos' => $photos,
+                ]);
+                if ($photos) {
+                    $file_id = $photos['photos'][0][0]['file_id'];
+                }
                 // dump($file_id);
             } catch (TelegramResponseException $e) {
                 Log::error('[RefreshPlayersBioCredentials] getUserProfilePhotos', [
