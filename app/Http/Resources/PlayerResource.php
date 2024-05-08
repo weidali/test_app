@@ -16,6 +16,10 @@ class PlayerResource extends JsonResource
     {
         return [
             'username' => $this->username,
+            'first_name' => $this->first_name,
+            'last_name' => $this->last_name,
+            'is_premium' => $this->is_premium,
+            'file_id' => $this->file_id,
             'score' => $this->score,
             'balance' => $this->balance,
             'multiplier' => $this->multiplier,
