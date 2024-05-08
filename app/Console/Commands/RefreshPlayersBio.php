@@ -47,10 +47,6 @@ class RefreshPlayersBio extends Command
                 }
                 if ($photos['total_count'] > 0) {
                     $file_id = $photos['photos'][0][0]['file_id'];
-                    Log::debug('[RefreshPlayersBioCredentials] getUserProfilePhotos', [
-                        'file_id' => $file_id,
-                        'chat_id' => $player->chat_id,
-                    ]);
                 }
             } catch (TelegramResponseException $e) {
                 Log::error('[RefreshPlayersBioCredentials] getUserProfilePhotos', [
@@ -72,11 +68,6 @@ class RefreshPlayersBio extends Command
                     if (isset($chat['last_name'])) {
                         $last_name = $chat['last_name'];
                     }
-                    Log::debug('[RefreshPlayersBioCredentials] getChat', [
-                        'first_name' => $first_name,
-                        'last_name' => $last_name,
-                        'chat_id' => $player->chat_id,
-                    ]);
                     // $file_id = $chat['photo']['small_file_id'];
                     // $photo = $chat['photo']['small_file_id'];
                 }
