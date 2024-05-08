@@ -40,7 +40,7 @@ class RefreshPlayersBio extends Command
                     'user_id' => $player->chat_id,
                 ]);
                 $file_id = $photos['photos'][0][0]['file_id'];
-                dump($file_id);
+                // dump($file_id);
             } catch (TelegramResponseException $e) {
                 Log::error('[RefreshPlayersBioCredentials] getUserProfilePhotos', [
                     'error' => $e->getMessage(),
@@ -59,7 +59,7 @@ class RefreshPlayersBio extends Command
                 }
                 $file_id = $chat['photo']['small_file_id'];
                 // $photo = $chat['photo']['small_file_id'];
-                dump($file_id);
+                // dump($file_id);
             } catch (TelegramResponseException $e) {
                 Log::error('[RefreshPlayersBioCredentials] getChat', [
                     'error' => $e->getMessage(),
