@@ -67,7 +67,10 @@ class Player extends Model
 
     public function getPositionAttribute()
     {
-        return $this->raiting->avg_rating;
+        if ($this->raiting) {
+            return $this->raiting->avg_rating;
+        }
+        return null;
     }
 
     public function raiting()
