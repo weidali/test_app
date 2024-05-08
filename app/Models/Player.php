@@ -19,11 +19,18 @@ class Player extends Model
         'checkin',
     ];
 
-    protected $appends = ['referral_link'];
+    protected $appends = [
+        'referral_link',
+        'server_time',
+    ];
 
     public function getReferralLinkAttribute()
     {
         return self::TELEGRAM_BOT_BASE_URL . '?start=' . $this->chat_id;
+    }
+    public function getServerTimeAttribute()
+    {
+        return now();
     }
 
     protected static function boot()
