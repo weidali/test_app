@@ -22,8 +22,8 @@ class RatesController extends Controller
         if (!$player) {
             return response()->json('Player not found', 419);
         }
+
         $users_count = Player::count();
-        // $rates = PlayerBalanceRating::setRating();
         $rates = PlayerBalanceRating::query()
             ->orderBy('avg_rating', 'asc')
             ->limit(PlayerBalanceRating::SHOW_LIMIT)

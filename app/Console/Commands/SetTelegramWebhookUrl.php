@@ -51,7 +51,7 @@ class SetTelegramWebhookUrl extends Command
             'drop_pending_updates' => true,
         ]);
         if (config('app.env') !== 'local') {
-            Sleep::for(4)->seconds();
+            Sleep::for(3)->seconds();
         }
 
         $adminIds = json_decode(env('ADMIN_IDS', '[]'), true);
@@ -66,7 +66,7 @@ class SetTelegramWebhookUrl extends Command
                 'parse_mode' => 'MarkDown',
             ]);
             if (config('app.env') !== 'local') {
-                Sleep::for(5)->seconds();
+                Sleep::for(3)->seconds();
             }
         }
 

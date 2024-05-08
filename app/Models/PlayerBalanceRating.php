@@ -21,15 +21,21 @@ class PlayerBalanceRating extends Model
         return $this->belongsTo(Player::class);
     }
 
-    // TODO
-    // Example of scheduled command (assuming that you have reviews relation in product model)
-    public static function setRating(int $count = 100)
+    public static function setRating(int $count = 0)
     {
-        $players = Player::query()
-            ->select(['id', 'username', 'balance'])
-            ->orderBy('balance', 'desc')
-            ->limit($count)
-            ->get();
+        if ($count == 0) {
+            $players = Player::query()
+                ->select(['id', 'username', 'balance'])
+                ->orderBy('balance', 'desc')
+                ->get();
+        } else {
+            $players = Player::query()
+                ->select(['id', 'username', 'balance'])
+                ->orderBy('balance', 'desc')
+                ->limit($count)
+                ->get();
+        }
+
 
         foreach ($players as $key => $player) {
             self::updateOrCreate(['player_id' => $player->id], [
@@ -37,6 +43,5 @@ class PlayerBalanceRating extends Model
                 'avg_rating' => $key + 1,
             ]);
         }
-        Player::whereNull('player_id')->delete();
     }
 }
