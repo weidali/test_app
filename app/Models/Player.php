@@ -17,6 +17,10 @@ class Player extends Model
         'score', 'balance',
         'referrer_id',
         'checkin',
+        'first_name',
+        'last_name',
+        'is_premium',
+        'file_id',
     ];
 
     protected $appends = [
