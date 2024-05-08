@@ -28,6 +28,7 @@
 - Player can invite frends by `referral_link` ($palyer->referral_link)
 - `referral_link` saved just one time by clicking `/start` after activate `referral_link`
 
+<hr>
 
 ### TODO Simple List
 
