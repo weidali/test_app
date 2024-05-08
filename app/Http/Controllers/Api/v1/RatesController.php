@@ -29,6 +29,7 @@ class RatesController extends Controller
             ->limit(PlayerBalanceRating::SHOW_LIMIT)
             ->get();
 
+        $players = [];
         foreach ($rates as $rating) {
             $players[] = [
                 'username' => $rating->player->username,
@@ -39,7 +40,7 @@ class RatesController extends Controller
 
         return response()->json([
             'total' => $users_count,
-            'players' => $players,
+            'players' => $players ?? null,
             'own_rating' => $player->position,
         ]);
     }
