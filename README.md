@@ -26,3 +26,16 @@ GET|HEAD `api/users`
 *Referrals system*
 - Player can invite frends by `referral_link` ($palyer->referral_link)
 - `referral_link` saved just one time by clicking `/start` after activate `referral_link`
+
+
+### TODO Simple List
+
+- [x] `/checkin` endpoint
+- [x] `server_now` field
+- [x] add auto checkin when fire increment endpoint
+- [x] `rates` field
+- [ ] level by balance
+- [ ] sort rates by level
+- [ ] skils with category
+- [ ] ava+ first last name
+- [ ] Comet Haley
