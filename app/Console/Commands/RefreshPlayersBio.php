@@ -47,6 +47,8 @@ class RefreshPlayersBio extends Command
                 }
                 Log::debug('[RefreshPlayersBioCredentials] getUserProfilePhotos', [
                     'photos' => $photos,
+                    'photos' => $player->chat_id,
+
                 ]);
                 if ($photos) {
                     $file_id = $photos['photos'][0][0]['file_id'];
@@ -71,7 +73,9 @@ class RefreshPlayersBio extends Command
                 if (isset($chat['last_name'])) {
                     $last_name = $chat['last_name'];
                 }
-                $file_id = $chat['photo']['small_file_id'];
+                if ($chat) {
+                    $file_id = $chat['photo']['small_file_id'];
+                }
                 // $photo = $chat['photo']['small_file_id'];
                 // dump($file_id);
             } catch (TelegramResponseException $e) {
