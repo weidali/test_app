@@ -43,5 +43,7 @@ class PlayerBalanceRating extends Model
                 'avg_rating' => $key + 1,
             ]);
         }
+
+        return $players->count();
     }
 }

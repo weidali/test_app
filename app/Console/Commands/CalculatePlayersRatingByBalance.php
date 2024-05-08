@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Models\PlayerBalanceRating;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Log;
 
 class CalculatePlayersRatingByBalance extends Command
 {
@@ -27,6 +28,9 @@ class CalculatePlayersRatingByBalance extends Command
     public function handle()
     {
         // Example of scheduled command (assuming that you have reviews relation in player model)
-        PlayerBalanceRating::setRating();
+        $res_count = PlayerBalanceRating::setRating();
+        Log::info('[CalculatePlayersRatingByBalance]', [
+            'count of rated players' => $res_count,
+        ]);
     }
 }
