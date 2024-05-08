@@ -37,7 +37,7 @@ class RefreshPlayersBio extends Command
         $file_id = null;
 
         $players = Player::select('chat_id')->get();
-        foreach ($players as $key => $player) {
+        foreach ($players as $player) {
             try {
                 $photos = Telegram::getUserProfilePhotos([
                     'user_id' => $player->chat_id,
@@ -45,15 +45,9 @@ class RefreshPlayersBio extends Command
                 if (config('app.env') !== 'local') {
                     Sleep::for($this->wait)->seconds();
                 }
-                Log::debug('[RefreshPlayersBioCredentials] getUserProfilePhotos', [
-                    'photos' => $photos,
-                    'photos' => $player->chat_id,
-
-                ]);
-                if ($photos) {
+                if ($photos['total_count'] > 0) {
                     $file_id = $photos['photos'][0][0]['file_id'];
                 }
-                // dump($file_id);
             } catch (TelegramResponseException $e) {
                 Log::error('[RefreshPlayersBioCredentials] getUserProfilePhotos', [
                     'error' => $e->getMessage(),
@@ -69,15 +63,14 @@ class RefreshPlayersBio extends Command
                     Sleep::for($this->wait)->seconds();
                 }
 
-                $first_name = $chat['first_name'];
-                if (isset($chat['last_name'])) {
-                    $last_name = $chat['last_name'];
-                }
                 if ($chat) {
-                    $file_id = $chat['photo']['small_file_id'];
+                    $first_name = $chat['first_name'];
+                    if (isset($chat['last_name'])) {
+                        $last_name = $chat['last_name'];
+                    }
+                    // $file_id = $chat['photo']['small_file_id'];
+                    // $photo = $chat['photo']['small_file_id'];
                 }
-                // $photo = $chat['photo']['small_file_id'];
-                // dump($file_id);
             } catch (TelegramResponseException $e) {
                 Log::error('[RefreshPlayersBioCredentials] getChat', [
                     'error' => $e->getMessage(),
