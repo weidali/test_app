@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Controller;
 use App\Models\Player;
+use App\Models\PlayerBalanceRating;
 use App\Telegram\Services\RequestData;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -22,26 +23,24 @@ class RatesController extends Controller
             return response()->json('Player not found', 419);
         }
         $users_count = Player::count();
-        $rates = Player::query()
-            ->select(['username', 'balance'])
-            ->orderBy('balance', 'asc')
-            ->limit(3)
-            ->get()
-            ->each
-            ->setAppends(['position']);
+        // $rates = PlayerBalanceRating::setRating();
+        $rates = PlayerBalanceRating::query()
+            ->orderBy('avg_rating', 'asc')
+            ->limit(PlayerBalanceRating::SHOW_LIMIT)
+            ->get();
 
-        for ($i = 0; $i < count($rates); $i++) {
-            // dump($i + 1);
-            // $rates[$i]->position = $i;
-            // if ($student_subject_marks_for_position == $class_subject_marks_for_position[$i]) {
-            //     $position = $i;
-            //     break;
-            // }
+        foreach ($rates as $rating) {
+            $players[] = [
+                'username' => $rating->player->username,
+                'balance' => $rating->player->balance,
+                'rating' => $rating->avg_rating,
+            ];
         }
 
         return response()->json([
             'total' => $users_count,
-            'rates' => $rates,
+            'players' => $players,
+            'own_rating' => $player->position,
         ]);
     }
 }

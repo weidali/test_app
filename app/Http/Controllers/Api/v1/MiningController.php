@@ -56,6 +56,13 @@ class MiningController extends Controller
     {
         $initData = $request->header('X-Telegram-WebApp-initData');
         $count = request('count');
+        $validator = Validator::make($request->route()->parameters(), [
+            'count' => ['required', 'integer',],
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([$validator->errors()], 404);
+        }
 
         $chatId  = RequestData::getChatId($initData);
 
@@ -67,18 +74,25 @@ class MiningController extends Controller
             $player
         ]);
 
-        $validator = Validator::make($request->route()->parameters(), [
-            'count' => ['required', 'integer',],
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json([$validator->errors()], 404);
-        }
-
         $player->setAttribute('taps', $count + $player->taps);
         $player->save();
         $player = $player->fresh();
 
         return new PlayerResource($player);
+    }
+
+    function checkin(Request $request): PlayerResource|JsonResponse
+    {
+        $initData = $request->header('X-Telegram-WebApp-initData');
+        $chatId  = RequestData::getChatId($initData);
+
+        $player = Player::where('chat_id', $chatId)->first();
+        if (!$player) {
+            return response()->json('Player not found', 419);
+        }
+
+        $player->setAttribute('checkin', now())->save();
+
+        return (new PlayerResource($player->fresh()));
     }
 }

@@ -16,6 +16,7 @@ class Player extends Model
         'taps', 'multiplier',
         'score', 'balance',
         'referrer_id',
+        'checkin',
     ];
 
     protected $appends = ['referral_link'];
@@ -62,5 +63,15 @@ class Player extends Model
     public function referrals()
     {
         return $this->hasMany(Player::class, 'referrer_id', 'id');
+    }
+
+    public function getPositionAttribute()
+    {
+        return $this->raiting->avg_rating;
+    }
+
+    public function raiting()
+    {
+        return $this->hasOne(PlayerBalanceRating::class);
     }
 }
