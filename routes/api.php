@@ -34,4 +34,10 @@ Route::group([
     ], function ($router) {
         Route::get('/', [\App\Http\Controllers\Api\v1\RatesController::class, 'getUsers']);
     });
+    Route::group([
+        'prefix' => 'stacks'
+    ], function ($router) {
+        Route::get('/', [\App\Http\Controllers\Api\v1\StackController::class, 'getStacks']);
+        Route::get('categories', [\App\Http\Controllers\Api\v1\StackController::class, 'getStackCatergories']);
+    });
 });

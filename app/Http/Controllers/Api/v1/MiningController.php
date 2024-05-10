@@ -41,7 +41,8 @@ class MiningController extends Controller
 
         $player = Player::query()
             ->with(['referrer', 'referrals'])
-            ->where('chat_id', $chatId)->first();
+            ->where('chat_id', $chatId)
+            ->first();
         if (!$player) {
             return response()->json('Player not found', 419);
         }

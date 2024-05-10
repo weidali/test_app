@@ -30,6 +30,8 @@ class PlayerResource extends JsonResource
             'server_time' => $this->server_time,
             'position' => $this->position ?? null,
             'created_at' => $this->created_at,
+            'stacks' => [],
+
         ];
     }
 }
