@@ -105,4 +105,53 @@ class Player extends Model
     {
         return $this->hasOne(Stack::class, 'id', 'main_stack_id');
     }
+
+    public function level_relation()
+    {
+        return $this->hasOne(Level::class);
+    }
+
+    public function getLevelAttribute(): string
+    {
+        $position = 0;
+        switch (true) {
+            case $this->balance < 100:
+                $position = 1;
+                break;
+
+            case $this->balance < 1000:
+                $position = 2;
+                break;
+
+            case $this->balance < 10000:
+                $position = 3;
+                break;
+
+            case $this->balance < 100000:
+                $position = 4;
+                break;
+
+            case $this->balance < 1000000:
+                $position = 5;
+                break;
+
+            case $this->balance < 10000000:
+                $position = 6;
+                break;
+
+            case $this->balance < 100000000:
+                $position = 7;
+                break;
+
+            case $this->balance < 1000000000:
+                $position = 8;
+                break;
+
+            default:
+                $position = 1;
+                break;
+        }
+
+        return Level::where('position', $position)->first()->title;
+    }
 }

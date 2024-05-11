@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\LevelResource;
 use App\Http\Resources\PlayerResource;
+use App\Models\Level;
 use App\Models\Player;
 use App\Telegram\Services\RequestData;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
@@ -96,5 +99,12 @@ class MiningController extends Controller
         $player->setAttribute('checkin', now())->save();
 
         return (new PlayerResource($player->fresh()));
+    }
+
+    public function getLevels(Request $request): AnonymousResourceCollection
+    {
+        $levels = Level::orderBy('position')->get();
+        // dd(LevelResource::collection($levels));
+        return LevelResource::collection($levels);
     }
 }

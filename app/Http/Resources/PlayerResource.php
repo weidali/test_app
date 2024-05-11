@@ -32,6 +32,7 @@ class PlayerResource extends JsonResource
             'created_at' => $this->created_at,
             'stacks' => [],
             'main_stack' => $this->main_stack,
+            'level' => $this->level,
         ];
     }
 }
