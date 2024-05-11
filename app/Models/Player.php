@@ -115,40 +115,43 @@ class Player extends Model
     {
         $position = 0;
         switch (true) {
-            case $this->balance < 100:
-                $position = 1;
+            case $this->balance < Level::LEVEL_GRADE_1['value']:
+                $position = Level::LEVEL_GRADE_1['position'];
                 break;
 
-            case $this->balance < 1000:
-                $position = 2;
+            case $this->balance < Level::LEVEL_GRADE_2['value']:
+                $position = Level::LEVEL_GRADE_2['position'];
                 break;
 
             case $this->balance < 10000:
-                $position = 3;
+                $position = Level::LEVEL_GRADE_3;
                 break;
 
             case $this->balance < 100000:
-                $position = 4;
+                $position = Level::LEVEL_GRADE_4;
                 break;
 
             case $this->balance < 1000000:
+                $position = Level::LEVEL_GRADE_6;
                 $position = 5;
                 break;
 
             case $this->balance < 10000000:
+                $position = Level::LEVEL_GRADE_6;
                 $position = 6;
                 break;
 
             case $this->balance < 100000000:
+                $position = Level::LEVEL_GRADE_7;
                 $position = 7;
                 break;
 
             case $this->balance < 1000000000:
-                $position = 8;
+                $position = Level::LEVEL_GRADE_8;
                 break;
 
             default:
-                $position = 1;
+                $position = Level::LEVEL_GRADE_1;
                 break;
         }
 
