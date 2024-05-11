@@ -50,11 +50,13 @@ class StackController extends Controller
                 ->withInput()
                 ->withErrors(['errors' => 'Stack already exist.']);
         }
-        Stack::create([
+        $stack = Stack::create([
             'title' => $request['title'],
             'description' => $request['description'],
             'category_id' => (int)$request['category_id'],
         ]);
+
+        CategoryOfStack::find($request['category_id'])->stacks()->save($stack);
 
         return redirect()->route('stacks.index')
             ->with('success', 'Stack created successfully.');
