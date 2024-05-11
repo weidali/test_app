@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\CategoryOfStack;
 use App\Models\Stack;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class StackController extends Controller
 {
@@ -23,7 +25,9 @@ class StackController extends Controller
      */
     public function create()
     {
-        //
+        $categories = CategoryOfStack::all();
+
+        return view('pages.stack.create', compact('categories'));
     }
 
     /**
@@ -31,7 +35,29 @@ class StackController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => 'required|max:255',
+            'description' => 'string|max:255',
+            'category_id' => 'numeric|exists:category_of_stacks,id',
+        ]);
+
+        $stack = DB::table('stacks')
+            ->select('title')
+            ->where(DB::raw('lower(title)'), 'like', '%' . strtolower($request['title']) . '%')
+            ->first();
+        if ($stack) {
+            return redirect()->back()
+                ->withInput()
+                ->withErrors(['errors' => 'Stack already exist.']);
+        }
+        Stack::create([
+            'title' => $request['title'],
+            'description' => $request['description'],
+            'category_id' => (int)$request['category_id'],
+        ]);
+
+        return redirect()->route('stacks.index')
+            ->with('success', 'Stack created successfully.');
     }
 
     /**
@@ -61,8 +87,12 @@ class StackController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Stack $stack)
+    public function destroy($id)
     {
-        //
+        $stack = Stack::find($id);
+        $stack->delete();
+
+        return redirect()->route('stacks.index')
+            ->with('success', 'Stack deleted successfully');
     }
 }

@@ -10,7 +10,9 @@ class Stack extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title'
+        'title',
+        'description',
+        'image',
     ];
 
     public function players()

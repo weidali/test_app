@@ -17,5 +17,8 @@ Route::group([
     // 'middleware' => 'auth',
     'prefix' => 'stacks',
 ], function ($router) {
-    Route::get('', [\App\Http\Controllers\Admin\StackController::class, 'index'])->name('stacks');
+    Route::get('', [\App\Http\Controllers\Admin\StackController::class, 'index'])->name('stacks.index');
+    Route::get('create', [\App\Http\Controllers\Admin\StackController::class, 'create'])->name('stacks.create');
+    Route::post('store', [\App\Http\Controllers\Admin\StackController::class, 'store'])->name('stacks.store');
+    Route::delete('{stack}', [\App\Http\Controllers\Admin\StackController::class, 'destroy'])->name('stacks.destroy');
 });

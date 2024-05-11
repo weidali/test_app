@@ -36,6 +36,7 @@
 - [x] `server_now` field
 - [x] add auto checkin when fire increment endpoint
 - [x] `rates` field
+- [ ] main_stack field to player
 - [ ] level by balance
 - [ ] sort rates by level
 - [ ] skils with category

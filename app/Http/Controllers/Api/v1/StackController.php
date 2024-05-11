@@ -53,8 +53,7 @@ class StackController extends Controller
     public function getStackCatergories(Request $request)
     {
         $catergory = CategoryOfStack::with('stacks')->get();
-        $stack = Stack::with('category')->first();
-        // dd($stack);
+
         return CategoryOfStackResource::collection($catergory);
     }
 }
