@@ -31,7 +31,7 @@ class PlayerResource extends JsonResource
             'position' => $this->position ?? null,
             'created_at' => $this->created_at,
             'stacks' => [],
-
+            'main_stack' => $this->main_stack,
         ];
     }
 }

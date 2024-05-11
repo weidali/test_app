@@ -39,5 +39,6 @@ Route::group([
     ], function ($router) {
         Route::get('/', [\App\Http\Controllers\Api\v1\StackController::class, 'getStacks']);
         Route::get('categories', [\App\Http\Controllers\Api\v1\StackController::class, 'getStackCatergories']);
+        Route::get('add-main/{stack_id}', [\App\Http\Controllers\Api\v1\StackController::class, 'addMainStackToPlayer']);
     });
 });

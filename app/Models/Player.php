@@ -21,11 +21,13 @@ class Player extends Model
         'last_name',
         'is_premium',
         'file_id',
+        'main_stack_id',
     ];
 
     protected $appends = [
         'referral_link',
         'server_time',
+        'main_stack',
     ];
 
     public function getReferralLinkAttribute()
@@ -87,5 +89,18 @@ class Player extends Model
     public function raiting()
     {
         return $this->hasOne(PlayerBalanceRating::class);
+    }
+
+    public function getMainStackAttribute()
+    {
+        if ($this->main_stack_relation) {
+            return $this->main_stack_relation->title;
+        }
+        return null;
+    }
+
+    public function main_stack_relation()
+    {
+        return $this->hasOne(Stack::class, 'id', 'main_stack_id');
     }
 }
