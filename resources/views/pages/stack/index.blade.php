@@ -24,16 +24,9 @@
             </td>
             <td><a href="{{ '' }}" class="btn btn-primary">Edit</a></td>
             <td>
-                {{-- <a class="btn btn-danger" 
-                    onclick="return confirm('Are you sure?')" 
-                    data-method="DELETE"
-                    href="{{ route('stacks.destroy', $stack->id) }}">
-                    <i class="fa fa-trash">Delete</i>
-                </a> --}}
                 <form action="{{ route('stacks.destroy', $stack->id) }}" method="POST">
                     @csrf
                     @method('DELETE')
-                    {{-- @onsubmit(confirm("are you sure ?")) --}}
                     <button class="btn btn-danger btn-sm"
                     onclick="return confirm('Are you sure you want to delete this?');"
                     type="submit" >Delete</button>

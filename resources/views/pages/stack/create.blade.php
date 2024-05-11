@@ -1,22 +1,6 @@
 @extends('layouts.default')
 @section('content')
 
-{{-- @if($errors->any())
-<h4>{{$errors->first()}}</h4>
-@endif
-@if (Session::has('exist'))
-   <div class="alert alert-info">{{ Session::get('message') }}</div>
-@endif
-@error('exist')
-              <div class="text-danger">{{ Session::get() }}</div>
-            @enderror
-@if (Session::has('exist'))
-    <div class="alert alert-success">
-        <ul>
-            <li>{{ Session::get('exist') }}</li>
-        </ul>
-    </div>
-@endif --}}
 @if(session()->has('exist'))
 <p class="alert alert-success"> {{ session()->get('message') }}</p>
 @endif
