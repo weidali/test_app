@@ -22,12 +22,14 @@ class Player extends Model
         'is_premium',
         'file_id',
         'main_stack_id',
+        'level_id',
     ];
 
     protected $appends = [
         'referral_link',
         'server_time',
         'main_stack',
+        'level',
     ];
 
     public function getReferralLinkAttribute()

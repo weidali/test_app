@@ -15,6 +15,12 @@
 `419` - when first init app, when player not found, for redirect him to create acount(start mining)\
 `422` - invalid Telegram WebApp initData
 
+### Prod seeders
+```shell
+php artisan db:seed --class=CategoryOfStackSeeder
+php artisan db:seed --class=LevelSeeder
+```
+
 
 ### Business logic
 

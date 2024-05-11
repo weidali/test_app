@@ -22,7 +22,7 @@
                     <span style="color:grey;">None</span>
                 @endif
             </td>
-            <td><a href="{{ '' }}" class="btn btn-primary disabled">Edit</a></td>
+            <td><a href="{{ route('stacks.edit', [$stack->id]) }}" class="btn btn-primary">Edit</a></td>
             <td>
                 <form action="{{ route('stacks.destroy', $stack->id) }}" method="POST">
                     @csrf

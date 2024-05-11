@@ -75,8 +75,9 @@ class StackController extends Controller
      */
     public function edit(Stack $stack)
     {
+        $categories = CategoryOfStack::orderBy('title')->get();
         // $post = Stack::find($id);
-        return view('stacks.edit', compact('stack'));
+        return view('pages.stack.edit', compact('stack', 'categories'));
     }
 
     /**
