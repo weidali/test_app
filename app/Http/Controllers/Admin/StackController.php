@@ -75,7 +75,8 @@ class StackController extends Controller
      */
     public function edit(Stack $stack)
     {
-        //
+        // $post = Stack::find($id);
+        return view('stacks.edit', compact('stack'));
     }
 
     /**

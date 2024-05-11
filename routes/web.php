@@ -20,5 +20,7 @@ Route::group([
     Route::get('', [\App\Http\Controllers\Admin\StackController::class, 'index'])->name('stacks.index');
     Route::get('create', [\App\Http\Controllers\Admin\StackController::class, 'create'])->name('stacks.create');
     Route::post('store', [\App\Http\Controllers\Admin\StackController::class, 'store'])->name('stacks.store');
+    Route::get('{stack}', [\App\Http\Controllers\Admin\StackController::class, 'edit'])->name('stacks.edit');
+    Route::put('{stack}', [\App\Http\Controllers\Admin\StackController::class, 'update'])->name('stacks.update');
     Route::delete('{stack}', [\App\Http\Controllers\Admin\StackController::class, 'destroy'])->name('stacks.destroy');
 });
