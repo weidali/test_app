@@ -36,9 +36,10 @@
 - [x] `server_now` field
 - [x] add auto checkin when fire increment endpoint
 - [x] `rates` field
-- [ ] main_stack field to player
+- [x] `stacks` model with category
+- [x] main_stack field to player
+- [x] ava+ first last name
 - [ ] level by balance
 - [ ] sort rates by level
 - [ ] skils with category
-- [ ] ava+ first last name
 - [ ] Comet Haley
