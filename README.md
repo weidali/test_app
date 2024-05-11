@@ -46,6 +46,7 @@ php artisan db:seed --class=LevelSeeder
 - [x] main_stack field to player
 - [x] ava+ first last name
 - [x] level by balance
+- [ ] store level for player
 - [ ] sort rates by level
 - [ ] skils with category
 - [ ] Comet Haley
