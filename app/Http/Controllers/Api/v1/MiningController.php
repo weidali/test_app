@@ -106,7 +106,7 @@ class MiningController extends Controller
         if (!$player)
             return response()->json('Player not found', 419);
 
-        $position = Player::checkPosition();
+        $position = $player->checkLevelPosition();
         $player->setLevelAttribute($position);
         $player->save;
 
