@@ -14,6 +14,7 @@ use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
+use SebastianBergmann\Type\NullType;
 
 class MiningController extends Controller
 {
@@ -58,7 +59,6 @@ class MiningController extends Controller
 
     public function incrementTaps(Request $request): PlayerResource
     {
-        $initData = $request->header('X-Telegram-WebApp-initData');
         $count = request('count');
         $validator = Validator::make($request->route()->parameters(), [
             'count' => ['required', 'integer',],
@@ -68,12 +68,9 @@ class MiningController extends Controller
             return response()->json([$validator->errors()], 404);
         }
 
-        $chatId  = RequestData::getChatId($initData);
-
-        $player = Player::where('chat_id', $chatId)->first();
-        if (!$player) {
+        $player = $this->getPlayerFromRequest($request);
+        if (!$player)
             return response()->json('Player not found', 419);
-        }
         Log::debug('[MiningController][incrementTaps]', [
             $player
         ]);
@@ -88,13 +85,9 @@ class MiningController extends Controller
 
     function checkin(Request $request): PlayerResource|JsonResponse
     {
-        $initData = $request->header('X-Telegram-WebApp-initData');
-        $chatId  = RequestData::getChatId($initData);
-
-        $player = Player::where('chat_id', $chatId)->first();
-        if (!$player) {
+        $player = $this->getPlayerFromRequest($request);
+        if (!$player)
             return response()->json('Player not found', 419);
-        }
 
         $player->setAttribute('checkin', now())->save();
 
@@ -106,5 +99,22 @@ class MiningController extends Controller
         $levels = Level::orderBy('position')->get();
         // dd(LevelResource::collection($levels));
         return LevelResource::collection($levels);
+    }
+
+    public function checkLevel(Request $request): PlayerResource|JsonResponse
+    {
+        $player = $this->getPlayerFromRequest($request);
+        if (!$player)
+            return response()->json('Player not found', 419);
+    }
+
+    public function getPlayerFromRequest(Request $request): Player|null
+    {
+        $initData = $request->header('X-Telegram-WebApp-initData');
+        $chatId  = RequestData::getChatId($initData);
+
+        $player = Player::where('chat_id', $chatId)->first();
+        if (!$player)
+            return null;
     }
 }

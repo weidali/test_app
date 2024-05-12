@@ -41,5 +41,10 @@ Route::group([
         Route::get('categories', [\App\Http\Controllers\Api\v1\StackController::class, 'getStackCatergories']);
         Route::get('add-main/{stack_id}', [\App\Http\Controllers\Api\v1\StackController::class, 'addMainStackToPlayer']);
     });
-    Route::get('levels', [\App\Http\Controllers\Api\v1\MiningController::class, 'getLevels']);
+    Route::group([
+        'prefix' => 'levels'
+    ], function ($router) {
+        Route::get('', [\App\Http\Controllers\Api\v1\MiningController::class, 'getLevels']);
+        Route::get('check', [\App\Http\Controllers\Api\v1\MiningController::class, 'checkLevel']);
+    });
 });
