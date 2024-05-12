@@ -67,7 +67,7 @@ class MiningController extends Controller
             return response()->json([$validator->errors()], 404);
         }
 
-        $player = $this->getPlayerFromRequest($request);
+        $player = RequestData::getPlayerFromRequest($request);
         if (!$player)
             return response()->json('Player not found', 419);
         Log::debug('[MiningController][incrementTaps]', [
@@ -75,8 +75,8 @@ class MiningController extends Controller
         ]);
 
         $player->setAttribute('taps', $count + $player->taps);
-        player->setAttribute('checkin', now());
-        $player->save();$
+        $player->setAttribute('checkin', now());
+        $player->save();
         $player = $player->fresh();
 
         return new PlayerResource($player);
