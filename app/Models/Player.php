@@ -23,6 +23,7 @@ class Player extends Model
         'file_id',
         'main_stack_id',
         'level_id',
+        'theme',
     ];
 
     protected $appends = [
@@ -108,10 +109,11 @@ class Player extends Model
 
     public function level_relation()
     {
-        return $this->hasOne(Level::class);
+        return $this->belongsTo(Level::class);
     }
 
-    public function getLevelAttribute(): string
+    // public function getLevelAttribute(): string
+    public function checkLevelPosition(): int
     {
         $position = 0;
         switch (true) {
@@ -154,6 +156,22 @@ class Player extends Model
                 $position = Level::LEVEL_GRADE_1;
                 break;
         }
+
+        // return Level::where('position', $position)->first()->title;
+        return Level::where('position', $position)->first()->id;
+    }
+
+    public function setLevelAttribute($value): void
+    {
+        $this->attributes['level_id'] = $value;
+    }
+
+    public function getLevelAttribute(): string
+    {
+        if ($this->level_relation) {
+            return $this->level_relation->title;
+        }
+        $position = $this->checkLevelPosition();
 
         return Level::where('position', $position)->first()->title;
     }

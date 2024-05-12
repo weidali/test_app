@@ -8,6 +8,8 @@
 - GET|HEAD `api/referral/link`
 - GET|HEAD `api/user`
 - GET|HEAD `api/users`
+- GET|HEAD `api/levels`
+- GET|HEAD `api/levels/check`
 
 ### Api response error codes
 

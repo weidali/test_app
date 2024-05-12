@@ -106,6 +106,12 @@ class MiningController extends Controller
         $player = $this->getPlayerFromRequest($request);
         if (!$player)
             return response()->json('Player not found', 419);
+
+        $position = Player::checkPosition();
+        $player->setLevelAttribute($position);
+        $player->save;
+
+        return (new PlayerResource($player->fresh()));
     }
 
     public function getPlayerFromRequest(Request $request): Player|null
