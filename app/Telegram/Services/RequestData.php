@@ -2,6 +2,10 @@
 
 namespace App\Telegram\Services;
 
+use App\Models\Player;
+use Illuminate\Http\Request;
+
+
 class RequestData
 {
 	public static function getCredentials(string $data): array
@@ -34,5 +38,17 @@ class RequestData
 			}
 		}
 		return $user_arr['id'];
+	}
+
+	public static function getPlayerFromRequest(Request $request): Player|null
+	{
+		$initData = $request->header('X-Telegram-WebApp-initData');
+		$chatId  = self::getChatId($initData);
+
+		$player = Player::where('chat_id', $chatId)->first();
+		if (!$player)
+			return null;
+
+		return $player;
 	}
 }

@@ -10,6 +10,7 @@
 - GET|HEAD `api/users`
 - GET|HEAD `api/levels`
 - GET|HEAD `api/levels/check`
+- GET|HEAD `api/player/theme/{theme}`
 
 ### Api response error codes
 

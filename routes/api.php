@@ -30,6 +30,11 @@ Route::group([
         Route::get('link', [\App\Http\Controllers\Api\v1\ReferrerController::class, 'getLink']);
     });
     Route::group([
+        'prefix' => 'player'
+    ], function ($router) {
+        Route::get('theme/{theme}', [\App\Http\Controllers\Api\v1\ReferrerController::class, 'setTheme']);
+    });
+    Route::group([
         'prefix' => 'users'
     ], function ($router) {
         Route::get('/', [\App\Http\Controllers\Api\v1\RatesController::class, 'getUsers']);

@@ -14,7 +14,6 @@ use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
-use SebastianBergmann\Type\NullType;
 
 class MiningController extends Controller
 {
@@ -116,11 +115,14 @@ class MiningController extends Controller
 
     public function getPlayerFromRequest(Request $request): Player|null
     {
+        // TODO
         $initData = $request->header('X-Telegram-WebApp-initData');
         $chatId  = RequestData::getChatId($initData);
 
         $player = Player::where('chat_id', $chatId)->first();
         if (!$player)
             return null;
+
+        return $player;
     }
 }
