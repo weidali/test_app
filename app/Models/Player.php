@@ -112,36 +112,35 @@ class Player extends Model
         return $this->belongsTo(Level::class);
     }
 
-    // public function getLevelAttribute(): string
     public function checkLevelPosition(): int
     {
         $position = 1;
         switch (true) {
-            case $this->balance < Level::LEVEL_GRADE_1['value']:
+            case $this->balance < Level::LEVEL_GRADE_2['value']:
                 $position = Level::LEVEL_GRADE_1['position'];
                 break;
 
-            case $this->balance < Level::LEVEL_GRADE_2['value']:
+            case $this->balance < Level::LEVEL_GRADE_3['value']:
                 $position = Level::LEVEL_GRADE_2['position'];
                 break;
 
-            case $this->balance < Level::LEVEL_GRADE_3['value']:
+            case $this->balance < Level::LEVEL_GRADE_4['value']:
                 $position = Level::LEVEL_GRADE_3['position'];
                 break;
 
-            case $this->balance < Level::LEVEL_GRADE_4['value']:
+            case $this->balance < Level::LEVEL_GRADE_5['value']:
                 $position = Level::LEVEL_GRADE_4['position'];
                 break;
 
-            case $this->balance < Level::LEVEL_GRADE_5['value']:
+            case $this->balance < Level::LEVEL_GRADE_6['value']:
                 $position = Level::LEVEL_GRADE_5['position'];
                 break;
 
-            case $this->balance < Level::LEVEL_GRADE_6['value']:
+            case $this->balance < Level::LEVEL_GRADE_7['value']:
                 $position = Level::LEVEL_GRADE_6['position'];
                 break;
 
-            case $this->balance < Level::LEVEL_GRADE_7['value']:
+            case $this->balance < Level::LEVEL_GRADE_8['value']:
                 $position = Level::LEVEL_GRADE_7['position'];
                 break;
 
