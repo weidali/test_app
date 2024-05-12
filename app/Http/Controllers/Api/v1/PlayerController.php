@@ -27,7 +27,8 @@ class PlayerController extends Controller
         if (!$player)
             return response()->json('Player not found', 419);
 
-        $player->setAttribute('theme', $theme)->save();
+        $player->setAttribute('theme', $theme);
+        $player->save();
 
         return (new PlayerResource($player->fresh()));
     }

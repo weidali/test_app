@@ -75,8 +75,8 @@ class MiningController extends Controller
         ]);
 
         $player->setAttribute('taps', $count + $player->taps);
-        $player->setAttribute('checkin', now());
-        $player->save();
+        player->setAttribute('checkin', now());
+        $player->save();$
         $player = $player->fresh();
 
         return new PlayerResource($player);

@@ -32,7 +32,7 @@ Route::group([
     Route::group([
         'prefix' => 'player'
     ], function ($router) {
-        Route::get('theme/{theme}', [\App\Http\Controllers\Api\v1\ReferrerController::class, 'setTheme']);
+        Route::get('theme/{theme}', [\App\Http\Controllers\Api\v1\PlayerController::class, 'setTheme']);
     });
     Route::group([
         'prefix' => 'users'
