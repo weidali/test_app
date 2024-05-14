@@ -32,15 +32,15 @@ class ProfileCommand extends Command
 			'username' => $username,
 		]);
 
-		$score = $player->score;
-		$balance = $player->balance;
+		$score = $player->score / 100;
+		$balance = $player->balance / 100;
 		$username = $player->username;
 		$username = StringService::toEscapeMsg($username);
-		$league = 'Diamond League';
+		$level = $player->level;;
 
 		$text = 'profile';
 		$text = '@' . $username . ' *profile*' . PHP_EOL . PHP_EOL;
-		$text .= '🏆 ' . $league . PHP_EOL . '🪙 Total score: ' . $score . PHP_EOL . '🪙 Balance: ' . $balance . PHP_EOL . PHP_EOL;
+		$text .= '🏆 ' . $level . PHP_EOL . '🪙 Total score: ' . $score . PHP_EOL . '🪙 Balance: ' . $balance . PHP_EOL . PHP_EOL;
 		$text .= '/profile for personal stats' . PHP_EOL;
 
 		if (Player::isAdmin($chatId)) {
