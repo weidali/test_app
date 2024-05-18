@@ -40,7 +40,7 @@ class Player extends Model
     }
     public function getServerTimeAttribute()
     {
-        return Carbon::now();
+        return Carbon::now("Europe/Moscow");
     }
 
     protected static function boot()
