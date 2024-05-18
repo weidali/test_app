@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -39,7 +40,7 @@ class Player extends Model
     }
     public function getServerTimeAttribute()
     {
-        return now();
+        return Carbon::now();
     }
 
     protected static function boot()
