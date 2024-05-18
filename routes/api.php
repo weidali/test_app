@@ -22,6 +22,8 @@ Route::group([
             'prefix' => 'taps'
         ], function ($router) {
             Route::get('increment/{count}', [\App\Http\Controllers\Api\v1\MiningController::class, 'incrementTaps']);
+            Route::get('earn-per-tap/{count}', [\App\Http\Controllers\Api\v1\MiningController::class, 'incrementEarnPerTap']);
+            Route::get('max-taps/{count}', [\App\Http\Controllers\Api\v1\MiningController::class, 'incrementMaxTaps']);
         });
     });
     Route::group([

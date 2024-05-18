@@ -75,7 +75,56 @@ class MiningController extends Controller
         ]);
 
         $player->setAttribute('taps', $count + $player->taps);
-        $player->setAttribute('checkin', now());
+        $player->save();
+        $player = $player->fresh();
+
+        return new PlayerResource($player);
+    }
+
+    public function incrementEarnPerTap(Request $request): PlayerResource|JsonResponse
+    {
+        $count = request('count');
+        $validator = Validator::make($request->route()->parameters(), [
+            'count' => ['required', 'integer',],
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([$validator->errors()], 404);
+        }
+
+        $player = RequestData::getPlayerFromRequest($request);
+        if (!$player)
+            return response()->json('Player not found', 419);
+        Log::debug('[MiningController][incrementEarnPerTap]', [
+            $player
+        ]);
+
+        $player->setAttribute('earn_per_tap', $count);
+        $player->save();
+        $player = $player->fresh();
+
+        return new PlayerResource($player);
+    }
+
+    public function incrementMaxTaps(Request $request): PlayerResource|JsonResponse
+    {
+        $count = request('count');
+        $validator = Validator::make($request->route()->parameters(), [
+            'count' => ['required', 'integer',],
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([$validator->errors()], 404);
+        }
+
+        $player = RequestData::getPlayerFromRequest($request);
+        if (!$player)
+            return response()->json('Player not found', 419);
+        Log::debug('[MiningController][incrementEarnPerTap]', [
+            $player
+        ]);
+
+        $player->setAttribute('max_taps', $count);
         $player->save();
         $player = $player->fresh();
 
@@ -88,7 +137,7 @@ class MiningController extends Controller
         if (!$player)
             return response()->json('Player not found', 419);
 
-        $player->setAttribute('checkin', now())->save();
+        $player->setAttribute('checkin', date('Y-m-d H:i:s'))->save();
 
         return (new PlayerResource($player->fresh()));
     }
@@ -96,7 +145,7 @@ class MiningController extends Controller
     public function getLevels(Request $request): AnonymousResourceCollection
     {
         $levels = Level::orderBy('position')->get();
-        // dd(LevelResource::collection($levels));
+
         return LevelResource::collection($levels);
     }
 
