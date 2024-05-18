@@ -5,6 +5,7 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Date;
 
 class Player extends Model
 {
@@ -40,6 +41,7 @@ class Player extends Model
     }
     public function getServerTimeAttribute()
     {
+        return Date::now();
         return Carbon::now("Europe/Moscow");
     }
 
