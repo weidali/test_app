@@ -34,6 +34,9 @@ class PlayerResource extends JsonResource
             'main_stack' => $this->main_stack,
             'level' => $this->level,
             'theme' => $this->theme,
+            'max_taps' => $this->max_taps,
+            'available_taps' => $this->available_taps,
+            'earn_per_tap' => $this->earn_per_tap,
         ];
     }
 }

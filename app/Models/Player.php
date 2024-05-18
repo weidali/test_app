@@ -26,6 +26,9 @@ class Player extends Model
         'main_stack_id',
         'level_id',
         'theme',
+        'max_taps',
+        'available_taps',
+        'earn_per_tap',
     ];
 
     protected $appends = [
