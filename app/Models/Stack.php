@@ -13,6 +13,7 @@ class Stack extends Model
         'title',
         'description',
         'image',
+        'is_main',
     ];
 
     public function players()
