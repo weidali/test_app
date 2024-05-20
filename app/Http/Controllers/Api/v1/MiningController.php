@@ -199,7 +199,7 @@ class MiningController extends Controller
         $player->setAttribute('balance', $player->balance + intval(round($last_passive_earn, 0)));
         $player->save();
         // dump(Player::MAX_PASSIVE_EARN_IN_SEC);
-        dump(intval(round($last_passive_earn, 0)));
+        // dump(intval(round($last_passive_earn, 0)));
         // dump($player->last_sync_update);
         // dd($total_duration);
 
