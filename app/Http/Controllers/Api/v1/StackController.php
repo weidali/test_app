@@ -12,6 +12,7 @@ use App\Models\Stack;
 use App\Telegram\Services\RequestData;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\Validator;
 
 class StackController extends Controller
@@ -89,9 +90,9 @@ class StackController extends Controller
         return (new PlayerResource($player->fresh()));
     }
 
-    public function getMainStacks(): StackResource|JsonResponse
+    public function getMainStacks(): StackResource|JsonResponse|AnonymousResourceCollection
     {
-        $stacks = Stack::where('is_main')->get();
+        $stacks = Stack::where('is_main', true)->get();
         if (!$stacks) {
             return response()->json('Stacks not found', 404);
         }
