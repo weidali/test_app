@@ -195,8 +195,9 @@ class MiningController extends Controller
         } else {
             $last_passive_earn = $total_duration * $player->earn_passive_per_sec;
         }
+        $last_passive_earn = intval(round($last_passive_earn, 0));
 
-        $player->setAttribute('balance', $player->balance + intval(round($last_passive_earn, 0)));
+        $player->setAttribute('balance', $player->balance + $last_passive_earn);
         $player->save();
         // dump(Player::MAX_PASSIVE_EARN_IN_SEC);
         // dump(intval(round($last_passive_earn, 0)));
