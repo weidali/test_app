@@ -29,6 +29,10 @@ class Player extends Model
         'max_taps',
         'available_taps',
         'earn_per_tap',
+
+        'earn_passive_per_sec',
+        'last_passive_earn',
+        'taps_recover_per_sec',
     ];
 
     protected $appends = [
@@ -36,6 +40,7 @@ class Player extends Model
         'server_time',
         'main_stack',
         'level',
+        'earn_passive_per_hour',
     ];
 
     public function getReferralLinkAttribute()
@@ -179,5 +184,10 @@ class Player extends Model
         $position = $this->checkLevelPosition();
 
         return Level::where('position', $position)->first()->title;
+    }
+
+    public function getEarnPassivePerHourAttribute(): int
+    {
+        return $this->earn_passive_per_sec * 60 * 60;
     }
 }
