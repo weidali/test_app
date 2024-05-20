@@ -8,6 +8,7 @@ use App\Http\Resources\PlayerResource;
 use App\Models\Level;
 use App\Models\Player;
 use App\Telegram\Services\RequestData;
+use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
@@ -173,5 +174,37 @@ class MiningController extends Controller
             return null;
 
         return $player;
+    }
+
+    public function makePassiveEarn(Request $request)
+    {
+        $initData = $request->header('X-Telegram-WebApp-initData');
+        $chatId  = RequestData::getChatId($initData);
+
+        $player = Player::where('chat_id', $chatId)->first();
+        if (!$player)
+            return null;
+
+        $server_time = Carbon::parse($player->server_time);
+        $last_sync_update = Carbon::parse($player->last_sync_update);
+
+        $total_duration = $last_sync_update->diffInSeconds($server_time);
+
+        if ($total_duration > Player::MAX_PASSIVE_EARN_IN_SEC) {
+            $last_passive_earn = Player::MAX_PASSIVE_EARN_IN_SEC * $player->earn_passive_per_sec;
+        } else {
+            $last_passive_earn = $total_duration * $player->earn_passive_per_sec;
+        }
+
+        $player->setAttribute('balance', $player->balance + intval(round($last_passive_earn, 0)));
+        $player->save();
+        // dump(Player::MAX_PASSIVE_EARN_IN_SEC);
+        dump(intval(round($last_passive_earn, 0)));
+        // dump($player->last_sync_update);
+        // dd($total_duration);
+
+        return response()->json([
+            'last_passive_earn' => $last_passive_earn,
+        ]);
     }
 }

@@ -12,11 +12,13 @@ class Player extends Model
     use HasFactory;
 
     public const TELEGRAM_BOT_BASE_URL = 'https://t.me/dev_kombat_bot';
+    public const MAX_PASSIVE_EARN_IN_SEC = 3 * 60 * 60;
 
     protected $fillable = [
         'username', 'chat_id',
         'taps', 'multiplier',
-        'score', 'balance',
+        'score',
+        'balance',
         'referrer_id',
         'last_sync_update',
         'first_name',

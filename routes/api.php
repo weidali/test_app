@@ -17,6 +17,7 @@ Route::group([
     ], function ($router) {
         Route::get('start', [\App\Http\Controllers\Api\v1\MiningController::class, 'start']);
         Route::get('user', [\App\Http\Controllers\Api\v1\MiningController::class, 'getUser']);
+        Route::get('passive-earn', [\App\Http\Controllers\Api\v1\MiningController::class, 'makePassiveEarn']);
         Route::group([
             'prefix' => 'taps'
         ], function ($router) {
