@@ -18,7 +18,7 @@ class Player extends Model
         'taps', 'multiplier',
         'score', 'balance',
         'referrer_id',
-        'checkin',
+        'last_sync_update',
         'first_name',
         'last_name',
         'is_premium',

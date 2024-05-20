@@ -26,7 +26,7 @@ class PlayerResource extends JsonResource
             'referral_link' => $this->referral_link,
             'referrer' => self::make($this->whenLoaded('referrer')),
             'referrals' => self::collection($this->whenLoaded('referrals')),
-            'checkin' => $this->checkin,
+            'last_sync_update' => $this->last_sync_update,
             'server_time' => $this->server_time,
             'position' => $this->position ?? null,
             'created_at' => $this->created_at,
