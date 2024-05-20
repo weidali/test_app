@@ -137,7 +137,7 @@ class MiningController extends Controller
         if (!$player)
             return response()->json('Player not found', 419);
 
-        $player->setAttribute('checkin', date('Y-m-d H:i:s'))->save();
+        $player->setAttribute('last_sync_update', date('Y-m-d H:i:s'))->save();
 
         return (new PlayerResource($player->fresh()));
     }

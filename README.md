@@ -47,16 +47,16 @@ php artisan db:seed --class=LevelSeeder
 
 ### TODO Simple List
 
-- [x] `/checkin` endpoint
+- [x] `/sync` endpoint
 - [x] `server_now` field
-- [x] add auto checkin when fire increment endpoint
+- [x] add auto `last_sync_update` when fire increment endpoint
 - [x] `rates` field
 - [x] `stacks` model with category
 - [x] main_stack field to player
 - [x] ava+ first last name
 - [x] level by balance
-- [ ] last_sync_update field instead checkin 	20.05.2024
-- [ ] api sync instead checkin					20.05.2024
+- [x] last_sync_update field instead checkin 	20.05.2024
+- [x] api sync instead checkin					20.05.2024
 - [ ] api list all main stacks by language 		20.05.2024
 - [ ] store level for player
 - [ ] sort rates by level
