@@ -68,8 +68,8 @@ class Player extends Model
                 $player->balance = $player->taps * $multiplier;
                 $player->score = $player->taps * $multiplier;
             }
-            if (!$player->isDirty('checkin')) {
-                $player->checkin = date('Y-m-d H:i:s');
+            if (!$player->isDirty('last_sync_update')) {
+                // $player->last_sync_update = date('Y-m-d H:i:s');
             }
         });
     }
