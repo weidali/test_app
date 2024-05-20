@@ -4,8 +4,9 @@
     <thead>
         <tr>
             <th>Title</th>
-            <th>img</th>
+            <th>Img</th>
             <th>Category</th>
+            <th>Is Main</th>
             <th></th>
             <th></th>
         </tr>
@@ -14,13 +15,25 @@
         @foreach ($stacks as $stack)
         <tr>
             <td>{{ $stack->title }}</td>
-            <td>{{ $stack->description }}</td>
+            <td>{{ $stack->img }}</td>
             <td>
                 @if (!is_null($stack->category))
                     {{ $stack->category->title }}
                 @else
                     <span style="color:grey;">None</span>
                 @endif
+            </td>
+            <td>
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckCheckedDisabled" {{ $stack->is_main ? 'checked' : '' }}  disabled>
+                    <label class="form-check-label" for="flexSwitchCheckCheckedDisabled">
+                        @if ($stack->is_main)
+                            <span style="color: green">True</span>
+                        @else
+                            <span style="color: red">False</span>
+                        @endif
+                    </label>
+                </div>
             </td>
             <td><a href="{{ route('stacks.edit', [$stack->id]) }}" class="btn btn-primary">Edit</a></td>
             <td>

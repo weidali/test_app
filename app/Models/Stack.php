@@ -16,6 +16,22 @@ class Stack extends Model
         'is_main',
     ];
 
+    public static $languages = [
+        'PHP',
+        'Python',
+        'Java',
+        'Ruby',
+        'Elixir',
+        'C_sharp',
+        'C_plus_plus',
+        'Basic',
+        'Delphi',
+        'Pascal',
+        'JavaScript',
+        'TypeScript',
+        'Electron',
+    ];
+
     public function players()
     {
         return $this->hasMany(Player::class);

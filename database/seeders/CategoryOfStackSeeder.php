@@ -32,7 +32,6 @@ class CategoryOfStackSeeder extends Seeder
                 'Delphi',
                 'Pascal',
                 'Elixir',
-
             ],
             'Client-side Programming' => [
                 'JavaScript',
@@ -79,7 +78,7 @@ class CategoryOfStackSeeder extends Seeder
                     ->first();
                 if (!$stack) {
                     $category->stacks()->create([
-                        'title' => $stack_title,
+                        'title' => strtoupper($stack_title),
                     ]);
                 }
             }
