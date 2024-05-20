@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\v1;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CategoryOfStackResource;
 use App\Http\Resources\PlayerResource;
+use App\Http\Resources\StackResource;
 use App\Models\CategoryOfStack;
 use App\Models\Player;
 use App\Models\Stack;
@@ -88,8 +89,13 @@ class StackController extends Controller
         return (new PlayerResource($player->fresh()));
     }
 
-    public function getMainStacks()
+    public function getMainStacks(): StackResource|JsonResponse
     {
-        // is_main
+        $stacks = Stack::where('is_main')->get();
+        if (!$stacks) {
+            return response()->json('Stacks not found', 404);
+        }
+
+        return StackResource::collection($stacks);
     }
 }
