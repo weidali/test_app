@@ -11,6 +11,8 @@
 - GET|HEAD `api/levels`
 - GET|HEAD `api/levels/check`
 - GET|HEAD `api/player/theme/{theme}`
+- GET|HEAD `api/mining/taps/earn-per-tap/{count}`
+- GET|HEAD `api/mining/taps/max-taps/{count}`
 
 ### Api response error codes
 
