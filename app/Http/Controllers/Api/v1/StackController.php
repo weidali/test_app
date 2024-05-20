@@ -90,6 +90,6 @@ class StackController extends Controller
 
     public function getMainStacks()
     {
-        // 
+        // is_main
     }
 }

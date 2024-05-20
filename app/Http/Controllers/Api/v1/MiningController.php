@@ -131,7 +131,7 @@ class MiningController extends Controller
         return new PlayerResource($player);
     }
 
-    function checkin(Request $request): PlayerResource|JsonResponse
+    function syncApp(Request $request): PlayerResource|JsonResponse
     {
         $player = $this->getPlayerFromRequest($request);
         if (!$player)

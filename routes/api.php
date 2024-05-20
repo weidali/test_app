@@ -17,7 +17,6 @@ Route::group([
     ], function ($router) {
         Route::get('start', [\App\Http\Controllers\Api\v1\MiningController::class, 'start']);
         Route::get('user', [\App\Http\Controllers\Api\v1\MiningController::class, 'getUser']);
-        Route::get('checkin', [\App\Http\Controllers\Api\v1\MiningController::class, 'checkin']);
         Route::group([
             'prefix' => 'taps'
         ], function ($router) {
@@ -26,6 +25,7 @@ Route::group([
             Route::get('max-taps/{count}', [\App\Http\Controllers\Api\v1\MiningController::class, 'incrementMaxTaps']);
         });
     });
+    Route::get('sync', [\App\Http\Controllers\Api\v1\MiningController::class, 'syncApp']);
     Route::group([
         'prefix' => 'referral'
     ], function ($router) {
