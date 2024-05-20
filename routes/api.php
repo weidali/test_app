@@ -44,7 +44,7 @@ Route::group([
     Route::group([
         'prefix' => 'stacks'
     ], function ($router) {
-        Route::get('/', [\App\Http\Controllers\Api\v1\StackController::class, 'getStacks']);
+        Route::get('main', [\App\Http\Controllers\Api\v1\StackController::class, 'getMainStacks']);
         Route::get('categories', [\App\Http\Controllers\Api\v1\StackController::class, 'getStackCatergories']);
         Route::get('add-main/{stack_id}', [\App\Http\Controllers\Api\v1\StackController::class, 'addMainStackToPlayer']);
     });

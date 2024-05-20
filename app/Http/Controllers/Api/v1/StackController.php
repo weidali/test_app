@@ -62,7 +62,7 @@ class StackController extends Controller
         return CategoryOfStackResource::collection($catergory);
     }
 
-    function addMainStackToPlayer(Request $request): PlayerResource|JsonResponse
+    public function addMainStackToPlayer(Request $request): PlayerResource|JsonResponse
     {
         $initData = $request->header('X-Telegram-WebApp-initData');
         $validator = Validator::make($request->route()->parameters(), [
@@ -86,5 +86,10 @@ class StackController extends Controller
             ->save();
 
         return (new PlayerResource($player->fresh()));
+    }
+
+    public function getMainStacks()
+    {
+        // 
     }
 }

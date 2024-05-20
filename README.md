@@ -13,6 +13,10 @@
 - GET|HEAD `api/player/theme/{theme}`
 - GET|HEAD `api/mining/taps/earn-per-tap/{count}`
 - GET|HEAD `api/mining/taps/max-taps/{count}`
+- GET|HEAD `/api/stacks/categories`
+- GET|HEAD `/api/stacks`
+- GET|HEAD `/api/stacks/add-main/{stack_id}`
+- GET|HEAD `/api/stacks/main`
 
 ### Api response error codes
 
@@ -51,6 +55,9 @@ php artisan db:seed --class=LevelSeeder
 - [x] main_stack field to player
 - [x] ava+ first last name
 - [x] level by balance
+- [ ] last_sync_update field instead checkin 	20.05.2024
+- [ ] api sync instead checkin					20.05.2024
+- [ ] api list all main stacks by language 		20.05.2024
 - [ ] store level for player
 - [ ] sort rates by level
 - [ ] skils with category
