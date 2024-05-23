@@ -100,7 +100,7 @@ class MiningController extends Controller
             $player
         ]);
 
-        $player->setAttribute('earn_per_tap', $count);
+        $player->setAttribute('earn_per_tap', $player->earn_per_tap + $count);
         $player->save();
         $player = $player->fresh();
 

@@ -13,6 +13,8 @@ class Player extends Model
 
     public const TELEGRAM_BOT_BASE_URL = 'https://t.me/dev_kombat_bot';
     public const MAX_PASSIVE_EARN_IN_SEC = 3 * 60 * 60;
+    public const BOOST_PER_TAP_RATIO = 0.01;
+    public const BOOST_AVAILABLE_TAPS = 100;
 
     protected $fillable = [
         'username', 'chat_id',
