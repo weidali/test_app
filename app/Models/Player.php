@@ -49,6 +49,10 @@ class Player extends Model
         'earn_passive_per_hour',
     ];
 
+    protected $casts = [
+        'is_active' => 'boolean'
+    ];
+
     public function getReferralLinkAttribute()
     {
         return self::TELEGRAM_BOT_BASE_URL . '?start=' . $this->chat_id;
