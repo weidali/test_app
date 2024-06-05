@@ -45,7 +45,7 @@ php artisan db:seed --class=LevelSeeder
 
 <hr>
 
-### TODO Simple List
+### TODO List
 
 - [x] `/sync` endpoint
 - [x] `server_now` field
@@ -60,8 +60,10 @@ php artisan db:seed --class=LevelSeeder
 - [x] api list all main stacks by language 			20.05.2024
 - [ ] passive earn fields and api					20.05.2024
 - [x] add `is_active` field to players				 5.06.2024
-- [ ] fix: max_taps/available_taps initial value
-- [ ] fix: first/last name when init
+- [x] fix: max_taps/available_taps initial value	 5.06.2024
+- [x] fix: first/last name when init				 5.06.2024
+- [ ] fix: player full name null					 5.06.2024
+- [x] start mining mechanics						 5.06.2024
 - [ ] store level for player
 - [ ] sort rates by level
 - [ ] skils with category
