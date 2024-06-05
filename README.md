@@ -55,10 +55,11 @@ php artisan db:seed --class=LevelSeeder
 - [x] main_stack field to player
 - [x] ava+ first last name
 - [x] level by balance
-- [x] last_sync_update field instead checkin 	20.05.2024
-- [x] api sync instead checkin					20.05.2024
-- [x] api list all main stacks by language 		20.05.2024
-- [ ] passive earn fields and api				20.05.2024
+- [x] last_sync_update field instead checkin 		20.05.2024
+- [x] api sync instead checkin						20.05.2024
+- [x] api list all main stacks by language 			20.05.2024
+- [ ] passive earn fields and api					20.05.2024
+- [x] add `is_active` field to players				 5.06.2024
 - [ ] fix: max_taps/available_taps initial value
 - [ ] fix: first/last name when init
 - [ ] store level for player
