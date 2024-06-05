@@ -202,7 +202,6 @@ class MiningController extends Controller
         // dump(Player::MAX_PASSIVE_EARN_IN_SEC);
         // dump(intval(round($last_passive_earn, 0)));
         // dump($player->last_sync_update);
-        // dd($total_duration);
 
         return response()->json([
             'last_passive_earn' => $last_passive_earn,

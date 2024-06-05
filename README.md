@@ -59,6 +59,8 @@ php artisan db:seed --class=LevelSeeder
 - [x] api sync instead checkin					20.05.2024
 - [x] api list all main stacks by language 		20.05.2024
 - [ ] passive earn fields and api				20.05.2024
+- [ ] fix: max_taps/available_taps initial value
+- [ ] fix: first/last name when init
 - [ ] store level for player
 - [ ] sort rates by level
 - [ ] skils with category
