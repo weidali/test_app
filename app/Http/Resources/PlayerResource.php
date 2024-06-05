@@ -42,6 +42,8 @@ class PlayerResource extends JsonResource
             'earn_passive_per_hour' => $this->earn_passive_per_hour,
             'last_passive_earn' => $this->last_passive_earn,
             'taps_recover_per_sec' => $this->taps_recover_per_sec,
+
+            'is_active' => $this->is_active,
         ];
     }
 }
