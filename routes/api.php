@@ -13,10 +13,17 @@ Route::group([
     'middleware' => 'telegram.hash',
 ], function ($router) {
     Route::group([
+        'prefix' => 'user'
+    ], function ($router) {
+        Route::get('/', [\App\Http\Controllers\Api\v1\PlayerController::class, 'getUser']);
+        Route::get('create', [\App\Http\Controllers\Api\v1\PlayerController::class, 'createUser']);
+        Route::get('activate', [\App\Http\Controllers\Api\v1\PlayerController::class, 'activateUser']);
+    });
+
+    Route::group([
         'prefix' => 'mining'
     ], function ($router) {
         Route::get('start', [\App\Http\Controllers\Api\v1\MiningController::class, 'start']);
-        Route::get('user', [\App\Http\Controllers\Api\v1\MiningController::class, 'getUser']);
         Route::get('passive-earn', [\App\Http\Controllers\Api\v1\MiningController::class, 'makePassiveEarn']);
         Route::group([
             'prefix' => 'taps'

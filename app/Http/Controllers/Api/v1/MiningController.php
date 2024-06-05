@@ -18,47 +18,6 @@ use Illuminate\Support\Facades\Validator;
 
 class MiningController extends Controller
 {
-    public function start(Request $request): PlayerResource|JsonResponse
-    {
-        $initData = $request->header('X-Telegram-WebApp-initData');
-        // TODO
-        $secret_token = $request->header('X-Telegram-Bot-Api-Secret-Token');
-
-        [$chatId, $username] = RequestData::getCredentials($initData);
-
-        $player = Player::query()
-            ->where('chat_id', $chatId)
-            ->first();
-        if (!$player) {
-            return response()->json('Player not found', 419);
-        }
-        $player->setAttribute('is_active', true);
-        $player->setAttribute('username', $username);
-        $player->save();
-        $player = $player->fresh();
-
-        return (new PlayerResource($player));
-    }
-
-    public function getUser(Request $request): PlayerResource|JsonResponse
-    {
-        $initData = $request->header('X-Telegram-WebApp-initData');
-        $chatId  = RequestData::getChatId($initData);
-
-        $player = Player::query()
-            ->with(['referrer', 'referrals'])
-            ->where('chat_id', $chatId)
-            ->first();
-        if (!$player) {
-            return response()->json('Player not found', 419);
-        }
-        Log::debug('[MiningController][getUser]', [
-            $player
-        ]);
-
-        return new PlayerResource($player);
-    }
-
     public function incrementTaps(Request $request): PlayerResource
     {
         $count = request('count');
