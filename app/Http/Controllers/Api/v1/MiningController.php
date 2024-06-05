@@ -26,14 +26,16 @@ class MiningController extends Controller
 
         [$chatId, $username] = RequestData::getCredentials($initData);
 
-        $player = Player::firstOrCreate(['chat_id' => $chatId], [
-            'username' => $username,
-        ]);
-        if ($player->wasRecentlyCreated) {
-            return (new PlayerResource($player))
-                ->response()
-                ->setStatusCode(Response::HTTP_CREATED);;
+        $player = Player::query()
+            ->where('chat_id', $chatId)
+            ->first();
+        if (!$player) {
+            return response()->json('Player not found', 419);
         }
+        $player->setAttribute('is_active', true);
+        $player->setAttribute('username', $username);
+        $player->save();
+        $player = $player->fresh();
 
         return (new PlayerResource($player));
     }
