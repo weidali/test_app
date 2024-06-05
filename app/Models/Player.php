@@ -37,6 +37,8 @@ class Player extends Model
         'earn_passive_per_sec',
         'last_passive_earn',
         'taps_recover_per_sec',
+
+        'is_active',
     ];
 
     protected $appends = [
