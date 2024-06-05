@@ -49,11 +49,16 @@ class PlayerController extends Controller
             $player
         ]);
 
+        $player->setAttribute('is_active', true);
+        $player->save();
+        $player = $player->fresh();
+
         if ($player->wasRecentlyCreated) {
             return (new PlayerResource($player))
                 ->response()
                 ->setStatusCode(Response::HTTP_CREATED);
         }
+
         return new PlayerResource($player);
     }
 
