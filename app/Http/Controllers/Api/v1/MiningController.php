@@ -93,11 +93,29 @@ class MiningController extends Controller
         return new PlayerResource($player);
     }
 
-    function syncApp(Request $request): PlayerResource|JsonResponse
+    public function syncApp(Request $request): PlayerResource|JsonResponse
     {
         $player = $this->getPlayerFromRequest($request);
         if (!$player)
             return response()->json('Player not found', 419);
+
+        $player->setAttribute('last_sync_update', date('Y-m-d H:i:s'))->save();
+
+        return (new PlayerResource($player->fresh()));
+    }
+
+    public function passiveMining(Request $request): PlayerResource|JsonResponse
+    {
+        $player = $this->getPlayerFromRequest($request);
+        if (!$player)
+            return response()->json('Player not found', 419);
+
+        // get difference
+        $time_now = now();
+
+        // sumerize pointe
+
+        // save player
 
         $player->setAttribute('last_sync_update', date('Y-m-d H:i:s'))->save();
 
